@@ -53,32 +53,32 @@ Wireframes serve as the basic structure of the application's user interface, pro
 #### Homepage
 
 The homepage serves as the landing page for the application. It includes a navigation bar and a description of the site with an invitation to join as a user.
-![homepage_web](../share-the-plate/assets/images/readme_images/homepage_web.png "Home Page desktop")![homepage_mobile](../share-the-plate/assets/images/readme_images/homepage_mobile.png "Home Page mobile")
+![homepage_web](./assets/images/readme_images/homepage_web.png "Home Page desktop")![homepage_mobile](./assets/images/readme_images/homepage_mobile.png "Home Page mobile")
 
 #### UserLogin
 
 The User login page allows input of email and password to log in as a user of the site. If a visitor has not created an account there will be a button to direct them to a sign up form where they can create their account.
-![user_login_web](../share-the-plate/assets/images/readme_images/user_login_web.png "User login and sign up desktop")![user_login_mobile](../share-the-plate/assets/images/readme_images/user_login_mobile.png "User login and sign up mobile")
+![user_login_web](./assets/images/readme_images/user_login_web.png "User login and sign up desktop")![user_login_mobile](./assets/images/readme_images/user_login_mobile.png "User login and sign up mobile")
 
 #### Recipe List View
 
 The Recipe List View page displays a list of recipes either ordered by most recently submitted or based on a search query. Each recipe card displays a summary of the recipe and an option to view the full recipe. 
-![recipe_list_web](../share-the-plate/assets/images/readme_images/recipe_list_web.png "Recipe list desktop")![recipe_list_mobile](../share-the-plate/assets/images/readme_images/recipe_list_mobile.png "Recipe list mobile")
+![recipe_list_web](./assets/images/readme_images/recipe_list_web.png "Recipe list desktop")![recipe_list_mobile](./assets/images/readme_images/recipe_list_mobile.png "Recipe list mobile")
 
 #### Full Recipe View
 
 The Full Recipe View page provides a detailed view of a specific recipe. It includes the recipe's ingredients, steps, cooking time, difficulty, comments, and an option to 'like' the recipe.
-![recipe_page_web](../share-the-plate/assets/images/readme_images/recipe_page_web.png "Recipe page desktop")![recipe_page_mobile](../share-the-plate/assets/images/readme_images/recipe_page_mobile.png "Recipe page mobile")
+![recipe_page_web](./assets/images/readme_images/recipe_page_web.png "Recipe page desktop")![recipe_page_mobile](./assets/images/readme_images/recipe_page_mobile.png "Recipe page mobile")
 
 #### Recipe Management
 
 The Recipe Management page allows users to add, edit, or delete their recipes. It contains a form for recipe details along with validation feedback.
-![recipe_manage_web](../share-the-plate/assets/images/readme_images/recipe_manage_web.png "Recipe Management Page desktop")![recipe_manage_mobile](../share-the-plate/assets/images/readme_images/recipe_manage_mobile.png "Recipe Management Page mobile")
+![recipe_manage_web](./assets/images/readme_images/recipe_manage_web.png "Recipe Management Page desktop")![recipe_manage_mobile](./assets/images/readme_images/recipe_manage_mobile.png "Recipe Management Page mobile")
 
 ### ERD (Entity-Relationship Diagram)
 
 The ERD for the database models was created to map out the structure of our database, showing the entities (tables), their attributes (fields), and the relationships between entities.
-![erd_diagram](../share-the-plate/assets/images/readme_images/erd_diagram.png "ERD diagram for database")
+![erd_diagram](./assets/images/readme_images/erd_diagram.png "ERD diagram for database")
 
 ### Use Cases
 
