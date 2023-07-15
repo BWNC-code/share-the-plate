@@ -1,108 +1,220 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# SHARE THE PLATE
 
-Welcome BWNC-code,
+## Table of Contents
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+- [SHARE THE PLATE](#share-the-plate)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [UI Decisions](#ui-decisions)
+  - [Features](#features)
+    - [Create a new user](#create-a-new-user)
+    - [Login as a user](#login-as-a-user)
+    - [Main menu function](#main-menu-function)
+    - [Add a recipe](#add-a-recipe)
+    - [Remove a recipe](#remove-a-recipe)
+    - [Update a recipe](#update-a-recipe)
+    - [Display recipes](#display-recipes)
+    - [Search for recipes](#search-for-recipes)
+  - [Features left to implement](#features-left-to-implement)
+  - [Technology Used](#technology-used)
+    - [Python](#python)
+      - [Libraries](#libraries)
+    - [Django](#django)
+  - [Testing](#testing)
+    - [Python Linting](#python-linting)
+    - [Manual Feature Testing](#manual-feature-testing)
+  - [Bugs](#bugs)
+  - [Deployment](#deployment)
+    - [Cloning and Forking](#cloning-and-forking)
+    - [Local Deployment](#local-deployment)
+    - [Remote Deployment](#remote-deployment)
+  - [Credits and Acknowledgements](#credits-and-acknowledgements)
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+[Table of contents generated with markdown-toc](http://ecotrust-canada.github.io/markdown-toc/)
 
-## Gitpod Reminders
+## Introduction
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+![Home page](./screenshots/home-page.png "Site home page")
 
-`python3 -m http.server`
+Share The Plate is a Django-based web application that allows users to create, update, search, and share their favourite recipes. Each user has their unique profile, which stores their added recipes. A user's recipe includes information such as title, ingredients, cooking instructions, cooking time, difficulty level, and an optional image. Users can also like and comment on other users' recipes, creating a sense of community and encouraging recipe sharing.
 
-A blue button should appear to click: _Make Public_,
+## UI Decisions
 
-Another blue button should appear to click: _Open Browser_.
+The user interface is clean and straightforward, focusing on functionality and ease of use. It uses standard web forms for user input, providing validation feedback where necessary. The user's home page displays a list of their recipes, which can be viewed, edited, or deleted. Each recipe's detail page displays all information about the recipe, along with user comments and the option to 'like' the recipe. Users can navigate the site through a user-friendly navigation bar.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+## Planning and Design
 
-A blue button should appear to click: _Make Public_,
+In the planning and design phase, I started with initial wireframes to visualize the layout and interface of various pages of our application. I also designed an Entity-Relationship Diagram (ERD) to outline the structure of the database. Lastly, I defined the primary use cases of our application to guide the overall design and functionality.
 
-Another blue button should appear to click: _Open Browser_.
+### Wireframes
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+Wireframes serve as the basic structure of the application's user interface, providing an overview of the layout, functionality, and intended user flow across the website.
 
-To log into the Heroku toolbelt CLI:
+#### Homepage
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+The homepage serves as the landing page for the application. It includes a navigation bar and a description of the site with an invitation to join as a user.
+![homepage_web](../share-the-plate/assets/images/readme_images/homepage_web.png "Home Page desktop")![homepage_mobile](../share-the-plate/assets/images/readme_images/homepage_mobile.png "Home Page mobile")
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+#### UserLogin
 
-------
+The User login page allows input of email and password to log in as a user of the site. If a visitor has not created an account there will be a button to direct them to a sign up form where they can create their account.
+![user_login_web](../share-the-plate/assets/images/readme_images/user_login_web.png "User login and sign up desktop")![user_login_mobile](../share-the-plate/assets/images/readme_images/user_login_mobile.png "User login and sign up mobile")
 
-## Release History
+#### Recipe List View
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+The Recipe List View page displays a list of recipes either ordered by most recently submitted or based on a search query. Each recipe card displays a summary of the recipe and an option to view the full recipe. 
+![recipe_list_web](../share-the-plate/assets/images/readme_images/recipe_list_web.png "Recipe list desktop")![recipe_list_mobile](../share-the-plate/assets/images/readme_images/recipe_list_mobile.png "Recipe list mobile")
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+#### Full Recipe View
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+The Full Recipe View page provides a detailed view of a specific recipe. It includes the recipe's ingredients, steps, cooking time, difficulty, comments, and an option to 'like' the recipe.
+![recipe_page_web](../share-the-plate/assets/images/readme_images/recipe_page_web.png "Recipe page desktop")![recipe_page_mobile](../share-the-plate/assets/images/readme_images/recipe_page_mobile.png "Recipe page mobile")
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+#### Recipe Management
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+The Recipe Management page allows users to add, edit, or delete their recipes. It contains a form for recipe details along with validation feedback.
+![recipe_manage_web](../share-the-plate/assets/images/readme_images/recipe_manage_web.png "Recipe Management Page desktop")![recipe_manage_mobile](../share-the-plate/assets/images/readme_images/recipe_manage_mobile.png "Recipe Management Page mobile")
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+### ERD (Entity-Relationship Diagram)
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+The ERD for the database models was created to map out the structure of our database, showing the entities (tables), their attributes (fields), and the relationships between entities.
+![erd_diagram](../share-the-plate/assets/images/readme_images/erd_diagram.png "ERD diagram for database")
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+### Use Cases
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+Use cases help in identifying the different types of users of our application and what they might want to achieve. Here are a few use cases:
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+- A new visitor wants to browse for recipes.
+- A returning user wants to log in and add a new recipe.
+- A user wants to search for recipes by ingredient or category
+- A user wants to update the details of their recipe.
+- A user wants to comment on or 'like' a recipe.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+## Features
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+This section explains each part of the project and the value it brings to achieving the project goal.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+### Create a new user
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+![create-user](./screenshots/create-user.png "Create user page")
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+The registration function allows users to create a new account using their email, a unique username, and a password. The function includes form validation to ensure data integrity and uses Django's authentication system for password security. Upon successful registration, a user profile is automatically created for the user.
 
-------
+### Login as a user
 
-## FAQ about the uptime script
+![login-user](./screenshots/login-user.png "Login page")
 
-**Why have you added this script?**
+Users can log in to their existing accounts by providing their username and password. The login system uses Django's authentication framework, providing security and session management.
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+### Main menu function
 
-**How will this affect me?**
+![main-menu](./screenshots/main-menu.png "Main Menu")
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+After logging in, the user is directed to their profile page, where they can view their recipes. They can also navigate to different areas of the site using the navigation bar.
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+### Add a recipe
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+![add-recipe](./screenshots/add-recipe.png "Add recipe page")
 
-**So….?**
+Users can add a new recipe by filling out a form with the recipe's details. The form includes fields for the recipe's title, ingredients, instructions, cooking time, difficulty level, and an optional image. The form includes validation to ensure all required fields are filled out correctly.
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
+### Remove a recipe
 
-**Can I opt out?**
+![remove-recipe](./screenshots/remove-recipe.png "Remove recipe page")
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
+Users can delete any of their recipes by going to the recipe's detail page and clicking the 'Delete' button. The user is asked to confirm the deletion to prevent accidental data loss. 
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+### Update a recipe
 
-**Anything more?**
+![update-recipe](./screenshots/update-recipe.png "Update recipe page")
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+Users can edit any of their recipes by going to the recipe's detail page and clicking the 'Edit' button. This takes them to a form pre-populated with the recipe's current details. The user can update any of the recipe's fields and save the changes.
 
----
+### Display recipes
 
-Happy coding!
+![display-recipes](./screenshots/display-recipes.png "Display recipes page")
+
+The user's profile page displays a list of all their recipes, along with the recipe's title, an image if available, and buttons to view, edit, or delete each recipe. 
+
+### Search for recipes
+
+![search-recipes](./screenshots/search-recipes.png "Search recipes page")
+
+Users can search for recipes by title using the search bar. The search function returns any recipes that match the search term and displays them in a list.
+
+## Features left to implement
+
+Future implementations could include the ability for users to follow other users and get updates when they post new recipes, as well as the ability to categorize recipes into different cuisine types or meal types for easier searching.
+
+## Technology Used
+
+### Python
+
+#### Libraries
+
+- Django: The primary framework used to build the application.
+- Pillow: A Python imaging library used to support images in models.
+
+### Django
+
+Django is the main framework used for this project. It is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It includes tools for user authentication, form handling, admin interface, and more.
+
+## Testing
+
+### Python Linting
+
+![linter-results](./screenshots/py-linter.png "Python linter results")
+
+All code passed through PEP8 linter with no errors
+
+### Manual Feature Testing
+
+All manual test cases can be found in [TESTING.md](./TESTING.md)
+
+## Bugs
+
+No known bugs remaining
+
+## Deployment
+
+This section describes the process of obtaining a copy of this project's files in a new repository, running an environment to work on the site, and deploying to a live platform.
+
+### Cloning and Forking
+
+- At the top of the repository page, select "Fork" and choose a name for the new repository to create a copy.
+
+- Alternatively, select "Code" above the file viewer and either use the link to pull a copy of the code or download the code as a zip file.
+
+### Local Deployment
+
+- Clone or download the repository files.
+
+- Create a virtual environment using `python -m venv venv`
+
+- Activate the virtual environment using `source venv/bin/activate`
+
+- Install the necessary packages using `pip install -r requirements.txt`
+
+- Migrate the database using `python manage.py migrate`
+
+- Create a superuser for the Django admin using `python manage.py createsuperuser`
+
+- Run the server using `python manage.py runserver`
+
+### Remote Deployment
+
+To deploy the application on Heroku and ensure that all features work as expected, follow these steps:
+
+- Create a new Heroku app.
+
+- Set up the necessary Config Vars in the Settings tab.
+
+- Connect your GitHub account and select the repository to be deployed.
+
+- Choose either manual deployment or enable automatic deployment.
+
+The live link can be found [here](https://share-the-plate.herokuapp.com/)
+
+## Credits and Acknowledgements
+
+All credits go to the Django and Python communities for their robust and easy-to-use libraries that made this project possible. Thanks also to my mentor for their guidance and advice throughout the project.
