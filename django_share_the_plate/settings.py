@@ -36,6 +36,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '8000-bwnccode-sharetheplate-ktokfwe9u2x.ws-eu101.gitpod.io',
+    '8000-bwnccode-sharetheplate-ktokfwe9u2x.ws-eu102.gitpod.io',
     'share-the-plate-592e2406d3d5.herokuapp.com',
     'localhost'
     ]
