@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from share_the_plate.views import home_page
+from share_the_plate import views
+from share_the_plate.views import CustomLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_page, name='home')
+    path('', views.home_page, name='home'),
+    path('recipes/', views.recipe_list, name='recipe_list'),
+    path('login/', CustomLoginView.as_view(), name='login')  # The login page
+
 ]
