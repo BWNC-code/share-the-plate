@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'django_summernote',
     'share_the_plate'
 ]
 
@@ -119,6 +120,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# redirect logged in user to recipes
+LOGIN_REDIRECT_URL = 'share_the_plate:recipe_list'
 
 
 # Internationalization
