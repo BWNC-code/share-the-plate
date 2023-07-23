@@ -16,12 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from share_the_plate import views
-from share_the_plate.views import CustomLoginView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('share_the_plate.urls')),  # include app's urls
-    path('recipes/', views.recipe_list, name='recipe_list'),
-    path('login/', CustomLoginView.as_view(), name='login')  # The login page
-
+    path('summernote/',  include('django_summernote.urls'))
 ]
