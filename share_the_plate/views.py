@@ -61,3 +61,29 @@ def profile(request, username):
     }
 
     return render(request, 'share_the_plate/profile.html', context)
+
+
+@login_required
+def profile_info(request, username):
+    if request.user.username != username:
+        return redirect('share_the_plate:index')
+    user = User.objects.get(username=username)
+    return render(request, 'share_the_plate/profile_info.html', {'profile_user': user})
+
+
+@login_required
+def user_recipes(request, username):
+    if request.user.username != username:
+        return redirect('share_the_plate:index')
+    user = User.objects.get(username=username)
+    recipes = Recipe.objects.filter(user=user)
+    return render(request, 'share_the_plate/user_recipes.html', {'profile_user': user, 'recipes': recipes})
+
+
+@login_required
+def liked_recipes(request, username):
+    if request.user.username != username:
+        return redirect('share_the_plate:index')
+    user = User.objects.get(username=username)
+    likes = Like.objects.filter(user=user)
+    return render(request, 'share_the_plate/liked_recipes.html', {'profile_user': user, 'likes': likes})
