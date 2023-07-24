@@ -34,6 +34,10 @@ class CustomLoginView(LoginView):
         return super().get_success_url()
 
 
+def after_logout(request):
+    return render(request, 'share_the_plate/after_logout.html')
+
+
 def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST, request.FILES)
