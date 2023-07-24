@@ -1,5 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.urls import reverse
+from .models import *
+from django.contrib.auth import login
+from .forms import SignUpForm
 
 
 # Create your views here.
@@ -21,6 +27,11 @@ def recipe_list(request):
 class CustomLoginView(LoginView):
     template_name = 'share_the_plate/login.html'
     redirect_authenticated_user = True
+
+    def get_success_url(self):
+        if self.request.user is not None:
+            return reverse_lazy('share_the_plate:profile', kwargs={'username': self.request.user.username})
+        return super().get_success_url()
 
 
 def signup(request):
