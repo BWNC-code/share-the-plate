@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .models import *
 from django.contrib.auth import login
 from .forms import SignUpForm
@@ -36,7 +37,7 @@ class CustomLoginView(LoginView):
 
     def get_success_url(self):
         if self.request.user is not None:
-            return reverse_lazy('share_the_plate:profile', kwargs={'username': self.request.user.username})
+            return reverse_lazy('share_the_plate:profile_info', kwargs={'username': self.request.user.username})
         return super().get_success_url()
 
 
@@ -56,21 +57,6 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'share_the_plate/sign_up.html', {'form': form})
-
-
-
-def profile(request, username):
-    user = get_object_or_404(User, username=username)
-    liked_recipes = user.liked_recipes.all()
-    user_recipes = Recipe.objects.filter(user=user)
-
-    context = {
-        'profile_user': user,  # use 'profile_user' to avoid conflict with logged in user
-        'liked_recipes': liked_recipes,
-        'user_recipes': user_recipes,
-    }
-
-    return render(request, 'share_the_plate/profile.html', context)
 
 
 @login_required
