@@ -11,7 +11,7 @@ STATUS = ((0, "Draft"), (1, "Published"))
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    profile_picture = models.CharField(max_length=255, default='default.jpg')
+    profile_picture = CloudinaryField('image', default='default_profile.jpg')
 
 
 class Recipe(models.Model):
@@ -19,9 +19,11 @@ class Recipe(models.Model):
     slug = models.SlugField(unique=True)
     ingredients = models.TextField()
     instructions = models.TextField()
-    cooking_time = models.IntegerField()
+    cooking_time = models.IntegerField(help_text='Enter cooking time in minutes')
     difficulty_level = models.CharField(max_length=255)
     featured_image = CloudinaryField('image', default='placeholder')
+    categories = models.ManyToManyField('Category', related_name='recipes')
+    tags = models.ManyToManyField('Tag', related_name='recipes')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
@@ -42,22 +44,12 @@ class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
 
-class RecipeCategory(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-
 class Tag(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
 
-class RecipeTag(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
-
-
 class Comment(models.Model):
-    comment_text = models.TextField()
+    body = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -66,7 +58,7 @@ class Comment(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Comment {self.body} by {self.name}"
+        return f"Comment {self.body} by {self.user.username}"
 
 
 class Like(models.Model):
