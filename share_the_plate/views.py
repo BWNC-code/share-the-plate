@@ -24,6 +24,12 @@ def recipe_list(request):
     return render(request, 'share_the_plate/recipe_list.html', context)
 
 
+def recipe_detail(request, slug):
+    recipe = get_object_or_404(Recipe, slug=slug)
+    return render(request,
+                  'share_the_plate/recipe_detail.html', {'recipe': recipe})
+
+
 class CustomLoginView(LoginView):
     template_name = 'share_the_plate/login.html'
     redirect_authenticated_user = True
