@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .views import CustomLoginView
+from django.contrib.auth.views import LogoutView
 
 app_name = 'share_the_plate'
 
@@ -13,4 +14,6 @@ urlpatterns = [
     path('profile/<str:username>/', views.profile_info, name='profile_info'),
     path('profile/<str:username>/recipes/', views.user_recipes, name='user_recipes'),
     path('profile/<str:username>/likes/', views.liked_recipes, name='liked_recipes'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('after-logout/', views.after_logout, name='after_logout')
 ]
