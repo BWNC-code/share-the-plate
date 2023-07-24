@@ -1,0 +1,8 @@
+{% extends 'profile_base.html' %}
+
+{% block profile_content %}
+<h2>My Recipes</h2>
+{% for recipe in user_recipes %}
+<!-- Recipe details here. -->
+{% endfor %}
+{% endblock %}
