@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load cloudinary %}
+
+{% block content %}
+<div class="sidebar">
+    <ul>
+        <li><a href="{% url 'share_the_plate:profile_info' user.username %}">Profile Info</a></li>
+        <li><a href="{% url 'share_the_plate:user_recipes' user.username %}">My Recipes</a></li>
+        <li><a href="{% url 'share_the_plate:liked_recipes' user.username %}">Liked Recipes</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    {% block profile_content %}
+    <!-- This block will be filled in by the child templates. -->
+    {% endblock %}
+</div>
+{% endblock %}
