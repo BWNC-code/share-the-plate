@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from django.urls import reverse_lazy
 
 if os.path.isfile("env.py"):
     import env
@@ -124,6 +125,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # redirect logged in user to recipes
 LOGIN_REDIRECT_URL = 'share_the_plate:recipe_list'
 
+# redirect after logging out
+LOGOUT_REDIRECT_URL = 'share_the_plate:after_logout'
+
+# ask user to log in if user needs to be authenticated
+LOGIN_URL = reverse_lazy('share_the_plate:login')
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
