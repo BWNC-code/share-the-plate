@@ -21,3 +21,18 @@ def recipe_list(request):
 class CustomLoginView(LoginView):
     template_name = 'share_the_plate/login.html'
     redirect_authenticated_user = True
+
+
+def signup(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('share_the_plate:recipe_list')
+        else:
+            print(form.errors)  # print form errors if form is not valid
+    else:
+        form = SignUpForm()
+    return render(request, 'share_the_plate/sign_up.html', {'form': form})
+
