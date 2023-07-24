@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Recipe, Category, Comment
+from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
+from django.contrib.auth.models import User
+from .models import Recipe, Category, Comment, Profile
 from django_summernote.admin import SummernoteModelAdmin
 
 # Register your models here.
@@ -24,3 +26,16 @@ class CommentAdmin(admin.ModelAdmin):
 
     name = Comment.user
 
+
+class UserProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+
+
+class UserAdmin(DefaultUserAdmin):
+    inlines = [UserProfileInline]
+
+
+# Re-register UserAdmin
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
