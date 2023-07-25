@@ -10,6 +10,7 @@ from django.urls import reverse, reverse_lazy
 from .models import *
 from django.contrib.auth import login
 from .forms import SignUpForm, RecipeForm
+from cloudinary import CloudinaryImage
 
 
 # Create your views here.
@@ -194,10 +195,12 @@ def user_recipes(request, username):
     if request.user.username != username:
         return redirect('share_the_plate:index')
     user = User.objects.get(username=username)
-    recipes = Recipe.objects.filter(user=user)
+    user_recipes = Recipe.objects.filter(user=user)
+    for recipe in user_recipes:
+        recipe.featured_image_url = CloudinaryImage(str(recipe.featured_image)).build_url(crop="scale")
     return render(request,
                   'share_the_plate/user_recipes.html',
-                  {'profile_user': user, 'user_recipes': recipes})
+                  {'profile_user': user, 'user_recipes': user_recipes})
 
 
 @login_required
