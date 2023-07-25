@@ -5,39 +5,31 @@
         <h2 class="my-4">Sign Up</h2>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.non_field_errors }}
             <div class="form-group">
-                <label for="{{ form.username.id_for_label }}">Username</label>
-                {{ form.username }}
-                {{ form.username.errors }}
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <label for="{{ form.password1.id_for_label }}">Password</label>
-                {{ form.password1 }}
-                {{ form.password1.errors }}
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
-                {{ form.password2 }}
-                {{ form.password2.errors }}
+                <label for="password1">Password</label>
+                <input type="password" class="form-control" id="password1" name="password1" required>
             </div>
             <div class="form-group">
-                <label for="{{ form.email.id_for_label }}">Email</label>
-                {{ form.email }}
-                {{ form.email.errors }}
+                <label for="password2">Confirm Password</label>
+                <input type="password" class="form-control" id="password2" name="password2" required>
             </div>
             <div class="form-group">
-                <label for="{{ form.bio.id_for_label }}">Bio (Optional)</label>
-                {{ form.bio }}
-                {{ form.bio.errors }}
+                <label for="bio">Bio (Optional)</label>
+                <textarea class="form-control" id="bio" name="bio" rows="3"></textarea>
             </div>
             <div class="form-group">
-                <label for="{{ form.profile_picture.id_for_label }}">Profile Picture (Optional)</label>
-                {{ form.profile_picture }}
-                {{ form.profile_picture.errors }}
+                <label for="profile_picture">Profile Picture (Optional)</label>
+                <input type="file" class="form-control-file" id="profile_picture" name="profile_picture">
             </div>
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
-        
     </div>
 {% endblock %}
