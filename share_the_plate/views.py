@@ -4,7 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
+from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from .models import *
 from django.contrib.auth import login
@@ -72,6 +73,18 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         """
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class RecipeUpdateView(LoginRequiredMixin, UpdateView):
+    model = Recipe
+    form_class = RecipeForm
+    template_name = 'share_the_plate/recipe_form.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.user != self.request.user:
+            return HttpResponseRedirect(reverse_lazy('share_the_plate:recipe_list'))
+        return super(RecipeUpdateView, self).dispatch(request, *args, **kwargs)
 
 
 class CustomLoginView(LoginView):

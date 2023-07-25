@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import CustomLoginView, RecipeCreateView
+from .views import CustomLoginView, RecipeCreateView, RecipeUpdateView
 from django.contrib.auth.views import LogoutView
 
 app_name = 'share_the_plate'
@@ -11,6 +11,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('recipes/', views.recipe_list, name='recipe_list'),
     path('recipe/new/', RecipeCreateView.as_view(), name='recipe_create'),
+    path('recipe/<int:pk>/edit/', RecipeUpdateView.as_view(), name='recipe_edit'),
     path('recipe/<slug:slug>/', views.recipe_detail, name='recipe_detail'),
     path('profile/<str:username>/', views.profile_info, name='profile_info'),
     path('profile/<str:username>/recipes/', views.user_recipes, name='user_recipes'),
