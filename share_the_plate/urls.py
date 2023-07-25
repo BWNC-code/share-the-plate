@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, reverse
 from . import views
 from .views import CustomLoginView, RecipeCreateView, RecipeUpdateView
 from django.contrib.auth.views import LogoutView

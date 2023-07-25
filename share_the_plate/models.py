@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.urls import reverse
 from cloudinary.models import CloudinaryField
 from taggit.managers import TaggableManager
 
@@ -39,6 +40,9 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('share_the_plate:recipe_detail', kwargs={'slug': self.slug})
 
 
 class Category(models.Model):
