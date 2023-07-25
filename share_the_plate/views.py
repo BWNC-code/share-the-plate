@@ -82,20 +82,27 @@ class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     form_class = RecipeForm
     template_name = 'share_the_plate/recipe_form.html'
 
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
+
+    def get_login_url(self):
+        if not self.request.user.is_authenticated:
+            return super().get_login_url()
+        else:
+            return reverse('share_the_plate:recipe_detail', kwargs={'slug': self.get_object().slug})
+
     def form_valid(self, form):
-        """
-        Set the current user as the author of the recipe before saving.
-        """
         self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        self.object.save()
+        if self.request.method == 'POST':
+            form = RecipeForm(self.request.POST, self.request.FILES, instance=self.object)
+            if form.is_valid():
+                self.object = form.save(commit=False)
 
-        # Remove all existing tags
         self.object.tags.clear()
+        for tag in form.cleaned_data['tags']:
+            self.object.tags.add(tag)
 
-        tags = form.cleaned_data['tags'].split(",")
-        for tag in tags:
-            self.object.tags.add(tag.strip())
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
@@ -109,12 +116,6 @@ class RecipeDeleteView(UserPassesTestMixin, DeleteView):
     def test_func(self):
         obj = self.get_object()
         return obj.user == self.request.user
-
-    def dispatch(self, request, *args, **kwargs):
-        obj = self.get_object()
-        if obj.user != self.request.user:
-            return HttpResponseRedirect(reverse_lazy('share_the_plate:recipe_list'))
-        return super(RecipeUpdateView, self).dispatch(request, *args, **kwargs)
 
 
 class CustomLoginView(LoginView):

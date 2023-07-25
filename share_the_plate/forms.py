@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile, Recipe, Category
-from taggit.forms import TagWidget
+from taggit.forms import TagWidget, TagField
 
 
 class SignUpForm(UserCreationForm):
@@ -36,13 +36,7 @@ class RecipeForm(forms.ModelForm):
     categories = forms.ModelMultipleChoiceField(
                                                 queryset=Category.objects.all(),
                                                 )
-    tags = forms.CharField(
-        required=False,
-        help_text="Enter comma-separated tags.",
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-        })
-    )
+    tags = TagField(widget=TagWidget(attrs={'placeholder': 'Enter tags'}), required=False)
 
     class Meta:
         model = Recipe
