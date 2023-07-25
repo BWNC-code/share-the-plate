@@ -197,7 +197,7 @@ def user_recipes(request, username):
     recipes = Recipe.objects.filter(user=user)
     return render(request,
                   'share_the_plate/user_recipes.html',
-                  {'profile_user': user, 'recipes': recipes})
+                  {'profile_user': user, 'user_recipes': recipes})
 
 
 @login_required

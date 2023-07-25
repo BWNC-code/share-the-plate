@@ -1,8 +1,16 @@
 {% extends 'profile_base.html' %}
 
 {% block profile_content %}
-<h2>My Recipes</h2>
-{% for recipe in user_recipes %}
-<!-- Recipe details here. -->
-{% endfor %}
+    <h2>My Recipes</h2>
+    {% for recipe in user_recipes %}
+        <!-- Recipe details here. -->
+        <div class="recipe">
+            <h3>{{ recipe.title }}</h3>
+            <p>Cooking time: {{ recipe.cooking_time }} minutes</p>
+            <p>Difficulty level: {{ recipe.difficulty_level }}</p>
+            <a href="{% url 'share_the_plate:recipe_detail' recipe.slug %}">View Recipe</a>
+        </div>
+    {% empty %}
+        <p>No recipes found.</p>
+    {% endfor %}
 {% endblock %}
