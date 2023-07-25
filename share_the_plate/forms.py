@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, Recipe, Category, Tag
+from .models import Profile, Recipe, Category
 
 
 class SignUpForm(UserCreationForm):
@@ -33,9 +33,15 @@ class SignUpForm(UserCreationForm):
 
 class RecipeForm(forms.ModelForm):
     categories = forms.ModelMultipleChoiceField(
-                                                queryset=Category.objects.all()
+                                                queryset=Category.objects.all(),
                                                 )
-    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all())
+    tags = forms.CharField(
+        required=False,
+        help_text="Enter comma-separated tags.",
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+        })
+    )
 
     class Meta:
         model = Recipe
@@ -45,6 +51,5 @@ class RecipeForm(forms.ModelForm):
                   'cooking_time',
                   'difficulty_level',
                   'featured_image',
-                  'categories',
-                  'tags'
+                  'categories'
                   ]

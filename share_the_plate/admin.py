@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 from django.contrib.auth.models import User
-from .models import Recipe, Category, Comment, Profile, Tag
+from .models import Recipe, Category, Comment, Profile
+from taggit.models import Tag
 from django_summernote.admin import SummernoteModelAdmin
 
 # Register your models here.
@@ -43,8 +44,4 @@ admin.site.register(User, UserAdmin)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name',]
-
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
     list_display = ['name',]

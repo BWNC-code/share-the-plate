@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -23,7 +24,7 @@ class Recipe(models.Model):
     difficulty_level = models.CharField(max_length=255)
     featured_image = CloudinaryField('image', default='placeholder')
     categories = models.ManyToManyField('Category', related_name='recipes')
-    tags = models.ManyToManyField('Tag', related_name='recipes')
+    tags = TaggableManager(blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
@@ -41,13 +42,6 @@ class Recipe(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Tag(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
