@@ -3,7 +3,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -72,13 +72,36 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         :return: HTTP response
         """
         form.instance.user = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        form.instance.tags.add(*self.request.POST.get('tags').split(","))
+        return response
 
 
-class RecipeUpdateView(LoginRequiredMixin, UpdateView):
+class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Recipe
     form_class = RecipeForm
     template_name = 'share_the_plate/recipe_form.html'
+
+    def form_valid(self, form):
+        """
+        Set the current user as the author of the recipe before saving.
+        """
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+
+        # Remove all existing tags
+        self.object.tags.clear()
+
+        tags = form.cleaned_data['tags'].split(",")
+        for tag in tags:
+            self.object.tags.add(tag.strip())
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()

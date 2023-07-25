@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile, Recipe, Category
+from taggit.forms import TagWidget
 
 
 class SignUpForm(UserCreationForm):
@@ -51,5 +52,18 @@ class RecipeForm(forms.ModelForm):
                   'cooking_time',
                   'difficulty_level',
                   'featured_image',
-                  'categories'
+                  'categories',
+                  'tags'
                   ]
+        widgets = {
+            'tags': TagWidget(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(RecipeForm, self).__init__(*args, **kwargs)
+        self.fields['tags'].widget = forms.TextInput()
+
+    def get_initial_for_field(self, field, field_name):
+        if field_name == 'tags':
+            return ", ".join(tag.name for tag in super().get_initial_for_field(field, field_name))
+        return super().get_initial_for_field(field, field_name)
