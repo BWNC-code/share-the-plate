@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from .models import *
@@ -98,6 +98,13 @@ class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             self.object.tags.add(tag.strip())
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+
+
+class RecipeDeleteView(UserPassesTestMixin, DeleteView):
+    model = Recipe
+    template_name = 'share_the_plate/recipe_confirm_delete.html'
+    success_url = reverse_lazy('share_the_plate:recipe_list')
 
     def test_func(self):
         obj = self.get_object()
