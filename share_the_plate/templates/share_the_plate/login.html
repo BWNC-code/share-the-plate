@@ -1,10 +1,12 @@
-{% extends 'share_the_plate/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
   <h2>Login</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
+    <button class="btn btn-primary" type="submit">Login</button>
+    <a href="{% url 'share_the_plate:signup' %}" class="btn btn-primary">Sign up</a>
   </form>
+  
 {% endblock %}
