@@ -2,17 +2,25 @@
 {% load cloudinary %}
 
 {% block content %}
-<div class="sidebar">
-    <ul>
-        <li><a href="{% url 'share_the_plate:profile_info' user.username %}">Profile Info</a></li>
-        <li><a href="{% url 'share_the_plate:user_recipes' user.username %}">My Recipes</a></li>
-        <li><a href="{% url 'share_the_plate:liked_recipes' user.username %}">Liked Recipes</a></li>
-    </ul>
-</div>
+<div class="container mt-4">
+    <div class="row d-flex flex-column flex-md-row">
+        <div class="col-12 col-md-3">
+            <div class="sidebar mb-4 mb-md-0">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'share_the_plate:profile_info' user.username %}">Profile Info</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'share_the_plate:user_recipes' user.username %}">My Recipes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'share_the_plate:liked_recipes' user.username %}">Liked Recipes</a></li>
+                </ul>
+            </div>
+        </div>
 
-<div class="main-content">
-    {% block profile_content %}
-    <!-- This block will be filled in by the child templates. -->
-    {% endblock %}
+        <div class="col-12 col-md-9">
+            <div class="main-content">
+                {% block profile_content %}
+                <!-- This block will be filled in by the child templates. -->
+                {% endblock %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
