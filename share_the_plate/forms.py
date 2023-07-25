@@ -1,13 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, Recipe
+from .models import Profile, Recipe, Category, Tag
 
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, help_text='Required. Please use a valid email address.')
-    bio = forms.CharField(required=False, help_text='Optional. A short description about you.')
-    profile_picture = forms.ImageField(required=False, help_text='Optional. Upload a profile picture.')
+    email = forms.EmailField(max_length=254,
+                             help_text='A valid email addres is required'
+                             )
+    bio = forms.CharField(required=False,
+                          help_text='Optional. A short description about you.')
+    profile_picture = forms.ImageField(required=False,
+                                       help_text='Optional. Upload a profile picture.')
 
     class Meta:
         model = User
@@ -21,12 +25,26 @@ class SignUpForm(UserCreationForm):
             Profile.objects.create(
                 user=user,
                 bio=self.cleaned_data['bio'],
-                profile_picture=self.cleaned_data.get('profile_picture', 'default_profile.jpg')
+                profile_picture=self.cleaned_data.get('profile_picture',
+                                                      'default_profile.jpg')
             )
         return user
 
 
 class RecipeForm(forms.ModelForm):
+    categories = forms.ModelMultipleChoiceField(
+                                                queryset=Category.objects.all()
+                                                )
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all())
+
     class Meta:
         model = Recipe
-        fields = ['title', 'ingredients', 'instructions', 'cooking_time', 'difficulty_level', 'featured_image', 'categories', 'tags']
+        fields = ['title',
+                  'ingredients',
+                  'instructions',
+                  'cooking_time',
+                  'difficulty_level',
+                  'featured_image',
+                  'categories',
+                  'tags'
+                  ]
