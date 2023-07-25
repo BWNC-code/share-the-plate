@@ -3,10 +3,12 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView
 from django.urls import reverse, reverse_lazy
 from .models import *
 from django.contrib.auth import login
-from .forms import SignUpForm
+from .forms import SignUpForm, RecipeForm
 
 
 # Create your views here.
@@ -29,6 +31,16 @@ def recipe_detail(request, slug):
     recipe = get_object_or_404(Recipe, slug=slug)
     return render(request,
                   'share_the_plate/recipe_detail.html', {'recipe': recipe})
+
+
+class RecipeCreateView(LoginRequiredMixin, CreateView):
+    model = Recipe
+    form_class = RecipeForm
+    template_name = 'share_the_plate/recipe_form.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class CustomLoginView(LoginView):

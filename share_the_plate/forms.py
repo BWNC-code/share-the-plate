@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Recipe
 
 
 class SignUpForm(UserCreationForm):
@@ -24,3 +24,9 @@ class SignUpForm(UserCreationForm):
                 profile_picture=self.cleaned_data.get('profile_picture', 'default_profile.jpg')
             )
         return user
+
+
+class RecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ['title', 'ingredients', 'instructions', 'cooking_time', 'difficulty_level', 'featured_image', 'categories', 'tags']
