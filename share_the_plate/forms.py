@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, Recipe, Category
+from .models import Profile, Recipe, Category, Comment
 from taggit.forms import TagWidget, TagField
 
 
@@ -61,3 +61,12 @@ class RecipeForm(forms.ModelForm):
         if field_name == 'tags':
             return ", ".join(tag.name for tag in super().get_initial_for_field(field, field_name))
         return super().get_initial_for_field(field, field_name)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']
+        widgets = {
+            'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Write your comment here...', 'label': '', 'rows': '3'}),
+        }

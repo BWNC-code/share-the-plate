@@ -49,8 +49,20 @@ def recipe_detail(request, slug):
     :return: Rendered detail view of the recipe
     """
     recipe = get_object_or_404(Recipe, slug=slug)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.recipe = recipe
+            comment.user = request.user
+            comment.save()
+            return redirect('share_the_plate:recipe_detail', slug=recipe.slug)
+    else:
+        form = CommentForm()
+
     return render(request,
-                  'share_the_plate/recipe_detail.html', {'recipe': recipe})
+                  'share_the_plate/recipe_detail.html',
+                  {'recipe': recipe, 'form': form})
 
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
@@ -91,12 +103,15 @@ class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if not self.request.user.is_authenticated:
             return super().get_login_url()
         else:
-            return reverse('share_the_plate:recipe_detail', kwargs={'slug': self.get_object().slug})
+            return reverse('share_the_plate:recipe_detail',
+                           kwargs={'slug': self.get_object().slug})
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
         if self.request.method == 'POST':
-            form = RecipeForm(self.request.POST, self.request.FILES, instance=self.object)
+            form = RecipeForm(self.request.POST,
+                              self.request.FILES,
+                              instance=self.object)
             if form.is_valid():
                 self.object = form.save(commit=False)
 
