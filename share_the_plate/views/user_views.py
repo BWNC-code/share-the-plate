@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .forms import SignUpForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from ..models import Recipe, Like
 from cloudinary import CloudinaryImage
 
@@ -81,14 +81,10 @@ def liked_recipes(request, username):
     :param username: username of the user
     :return: Rendered list of users liked reciped page
     """
-    print("Liked recipes function is called")
     if request.user.username != username:
         return redirect("share_the_plate:index")
     user = User.objects.get(username=username)
     liked_recipes = Recipe.objects.filter(like__user=user)
-
-    print("All likes for the user: ", Like.objects.filter(user=user))
-    print("Liked recipes: ", liked_recipes)
 
     return render(
         request,
@@ -121,3 +117,31 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, "share_the_plate/sign_up.html", {"form": form})
+
+
+@login_required
+def deactivate_confirm(request, username):
+    if request.method == 'POST':
+        # Ensure the user is deactivating their own account
+        User = get_user_model()
+        user = get_object_or_404(User, username=username)
+
+        if user != request.user:
+            # The user is trying to deactivate an account that is not theirs.
+            # Redirect them to their profile page or somewhere else.
+            return redirect("share_the_plate:index")
+
+        # The user confirmed they want to deactivate their own account.
+        # Deactivate it and log them out.
+        user.is_active = False
+        user.save()
+        logout(request)
+        return render(request, 'share_the_plate/deactivated_user.html')
+
+    # If the method is not POST, it's GET. So, render the confirmation page
+    return render(request, 'share_the_plate/deactivate_confirm.html')
+
+
+def deactivated_account(request, username):
+    # Render the page that informs the user their account has been deactivated.
+    return render(request, 'share_the_plate/deactivated_user.html')

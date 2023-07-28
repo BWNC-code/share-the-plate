@@ -9,6 +9,14 @@
         <div>
             <h1>{{ user.username }}</h1>
             <p>{{ user.profile.bio }}</p>
+
+            <!-- Deactivate account button -->
+            {% if user == request.user %}
+            <form action="{% url 'share_the_plate:deactivate_confirm' user.username %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Deactivate my account">
+            </form>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

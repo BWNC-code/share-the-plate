@@ -14,6 +14,8 @@ from .views import (
     user_recipes,
     liked_recipes,
     search,
+    deactivate_confirm,
+    deactivated_account
 )
 from django.contrib.auth.views import LogoutView
 
@@ -42,5 +44,7 @@ urlpatterns = [
     path("search/", search, name="search"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("after-logout/", after_logout, name="after_logout"),
+    path('deactivate_account/<str:username>/', deactivate_confirm, name='deactivate_confirm'),
+    path('profile/<str:username>/deactivated/', deactivated_account, name='deactivated_account'),
     path("", home_page, name="index"),
 ]
