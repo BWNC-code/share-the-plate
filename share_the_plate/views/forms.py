@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, Recipe, Category, Comment
+from ..models import Profile, Recipe, Category, Comment
 from taggit.forms import TagWidget, TagField
 
 
@@ -11,8 +11,10 @@ class SignUpForm(UserCreationForm):
                              )
     bio = forms.CharField(required=False,
                           help_text='Optional. A short description about you.')
-    profile_picture = forms.ImageField(required=False,
-                                       help_text='Optional. Upload a profile picture.')
+    profile_picture = forms.ImageField(
+        required=False,
+        help_text='Optional. Upload a profile picture.'
+    )
 
     class Meta:
         model = User
@@ -34,9 +36,12 @@ class SignUpForm(UserCreationForm):
 
 class RecipeForm(forms.ModelForm):
     categories = forms.ModelMultipleChoiceField(
-                                                queryset=Category.objects.all(),
-                                                )
-    tags = TagField(widget=TagWidget(attrs={'placeholder': 'Enter tags'}), required=False)
+        queryset=Category.objects.all(),
+    )
+
+    tags = TagField(
+        widget=TagWidget(attrs={'placeholder': 'Enter tags'}), required=False
+    )
 
     class Meta:
         model = Recipe
@@ -57,16 +62,16 @@ class RecipeForm(forms.ModelForm):
         super(RecipeForm, self).__init__(*args, **kwargs)
         self.fields['tags'].widget = forms.TextInput()
 
-    def get_initial_for_field(self, field, field_name):
-        if field_name == 'tags':
-            return ", ".join(tag.name for tag in super().get_initial_for_field(field, field_name))
-        return super().get_initial_for_field(field, field_name)
-
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['body']
         widgets = {
-            'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Write your comment here...', 'label': '', 'rows': '3'}),
+            'body': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Write your comment here...',
+                'label': '',
+                'rows': '3'
+            }),
         }
