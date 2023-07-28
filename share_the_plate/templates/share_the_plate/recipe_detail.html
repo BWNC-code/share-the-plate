@@ -4,7 +4,20 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-8">
-            <h1>{{ recipe.title }}</h1>
+            <div style="display: flex; align-items: center;">
+                <h1 style="margin-right: 10px;">{{ recipe.title }}</h1>
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'share_the_plate:toggle_like' recipe.slug %}">
+                        {% csrf_token %}
+                        {% if user_has_liked %}
+                            <button type="submit" class="btn btn-light"><i class="fas fa-heart"></i></button>
+                        {% else %}
+                            <button type="submit" class="btn btn-light"><i class="far fa-heart"></i></button>
+                        {% endif %}
+                    </form>
+                {% endif %}
+            </div>
+            
             <!-- Buttons for editing and deleting the recipe -->
             {% if user.is_authenticated and recipe.user == user %}
             <a class="btn btn-primary" href="{% url 'share_the_plate:recipe_edit' recipe.slug %}">Edit</a>
