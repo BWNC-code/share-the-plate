@@ -4,9 +4,11 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.http import Http404
 from .forms import SignUpForm
 from django.contrib.auth import login, logout
 from ..models import Recipe, Like
+from .other_views import check_user_exists
 from cloudinary import CloudinaryImage
 
 
@@ -33,6 +35,7 @@ class CustomLoginView(LoginView):
 
 
 @login_required
+@check_user_exists
 def profile_info(request, username):
     """
     Display profile information of the user.
@@ -49,6 +52,7 @@ def profile_info(request, username):
 
 
 @login_required
+@check_user_exists
 def user_recipes(request, username):
     """
     Display submitted recipes of the user.
@@ -73,6 +77,7 @@ def user_recipes(request, username):
 
 
 @login_required
+@check_user_exists
 def liked_recipes(request, username):
     """
     Display users liked recipes.
@@ -120,16 +125,12 @@ def signup(request):
 
 
 @login_required
+@check_user_exists
 def deactivate_confirm(request, username):
     if request.method == 'POST':
         # Ensure the user is deactivating their own account
         User = get_user_model()
         user = get_object_or_404(User, username=username)
-
-        if user != request.user:
-            # The user is trying to deactivate an account that is not theirs.
-            # Redirect them to their profile page or somewhere else.
-            return redirect("share_the_plate:index")
 
         # The user confirmed they want to deactivate their own account.
         # Deactivate it and log them out.
