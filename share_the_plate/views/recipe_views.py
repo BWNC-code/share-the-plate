@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
 from django.urls import reverse, reverse_lazy
+from django.db.models import Q
 from ..models import Recipe, Comment, Like
 from .forms import RecipeForm, CommentForm
 
@@ -20,9 +22,6 @@ def toggle_like(request, slug):
         action = "unlike"
         like.delete()
         messages.success(request, f"You have unliked {recipe.title}.")
-
-    print(f"{user.username} has {action}d {recipe.title}")
-    print("All likes for the user: ", Like.objects.filter(user=user))
 
     return redirect("share_the_plate:recipe_detail", slug=slug)
 
