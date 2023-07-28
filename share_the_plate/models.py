@@ -54,7 +54,10 @@ class Recipe(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('share_the_plate:recipe_detail', kwargs={'slug': self.slug})
+        return reverse(
+            'share_the_plate:recipe_detail',
+            kwargs={'slug': self.slug}
+        )
 
 
 class Category(models.Model):
