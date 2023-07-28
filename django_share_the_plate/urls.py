@@ -20,6 +20,6 @@ from share_the_plate import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('share_the_plate.urls')),  # include app's urls
-    path('summernote/',  include('django_summernote.urls'))
+    path('summernote/', include('django_summernote.urls')),
+    path('', include('share_the_plate.urls'))  # include app's urls
 ]
