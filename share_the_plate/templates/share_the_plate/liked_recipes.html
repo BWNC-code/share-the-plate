@@ -3,6 +3,21 @@
 {% block profile_content %}
 <h2>Liked Recipes</h2>
 {% for recipe in liked_recipes %}
-<!-- Recipe details here. -->
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{ recipe.featured_image.url }}" class="card-img" alt="{{ recipe.title }}">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ recipe.title }}</h5>
+                    <p class="card-text">{{ recipe.ingredients }}</p>
+                    <a href="{% url 'share_the_plate:recipe_detail' recipe.slug %}" class="btn btn-primary">View Recipe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <p>You haven't liked any recipes yet.</p>
 {% endfor %}
 {% endblock %}
