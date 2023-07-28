@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Search Results</h2>
+
+{% if results %}
+<ul>
+    {% for recipe in results %}
+    <li>
+        <a href="{% url 'share_the_plate:recipe_detail' recipe.slug %}">{{ recipe.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No results found.</p>
+{% endif %}
+{% endblock %}
