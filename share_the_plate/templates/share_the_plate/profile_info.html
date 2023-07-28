@@ -2,7 +2,13 @@
 {% load cloudinary %}
 
 {% block profile_content %}
-<h1>{{ user.username }}</h1>
-<p>{{ user.profile.bio }}</p>
-{% cloudinary user.profile.profile_picture %}
+    <div class="d-flex align-items-center">
+        <div class="mr-3">
+            {% cloudinary user.profile.profile_picture width="100" height="100" crop="fill" class="rounded-circle" %}
+        </div>
+        <div>
+            <h1>{{ user.username }}</h1>
+            <p>{{ user.profile.bio }}</p>
+        </div>
+    </div>
 {% endblock %}
