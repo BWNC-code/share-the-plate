@@ -2,20 +2,13 @@
   // Use IntelliSense to learn about possible attributes.
   // Hover to view descriptions of existing attributes.
   "version": "0.2.0",
-  "configurations": [{
-      "name": "Python: Django",
-      "type": "python",
-      "request": "launch",
-      "program": "${workspaceFolder}/manage.py",
-      "args": ["runserver"],
-      "django": true,
-      "justMyCode": true,
-      "env": {
-        "DATABASE_URL" : "postgres://nqhvclqd:LOOxwOc4IzOJ05DXGr8z-Gst6xUfFObO@surus.db.elephantsql.com/nqhvclqd",
-        "SECRET_KEY" : "django-insecure-qv(&z3vbt$xkrc@p)eh%s@gs+#=%mq*h=ac(l0ei3sv1+kzf4%",
-        "CLOUDINARY_URL" : "cloudinary://598794946556249:m9TifgcSt3Acf62cfyAeSvklGIQ@dig4yhkxm"
-      }
-    }
-
+  "configurations": [
+      {
+            "name": "Python: Current File (Integrated Terminal)",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "internalConsole"
+        }
   ]
 }
