@@ -9,6 +9,12 @@ from taggit.managers import TaggableManager
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
+DIFFICULTY_CHOICES = [
+        ('beginner', 'Beginner'),
+        ('intermediate', 'Intermediate'),
+        ('expert', 'Expert'),
+    ]
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -21,8 +27,14 @@ class Recipe(models.Model):
     slug = models.SlugField(unique=True)
     ingredients = models.TextField()
     instructions = models.TextField()
-    cooking_time = models.IntegerField(help_text='Enter cooking time in minutes')
-    difficulty_level = models.CharField(max_length=255)
+    cooking_time = models.IntegerField(
+        help_text='Enter cooking time in minutes'
+    )
+    difficulty_level = models.CharField(
+        max_length=15,
+        choices=DIFFICULTY_CHOICES,
+        default='beginner',
+    )
     featured_image = CloudinaryField('image', default='placeholder')
     categories = models.ManyToManyField('Category', related_name='recipes')
     tags = TaggableManager(blank=True)

@@ -35,25 +35,37 @@ class SignUpForm(UserCreationForm):
 
 
 class RecipeForm(forms.ModelForm):
+    DIFFICULTY_CHOICES = (
+        ('beginner', 'Beginner'),
+        ('intermediate', 'Intermediate'),
+        ('expert', 'Expert'),
+    )
+
     categories = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
+        widget=forms.CheckboxSelectMultiple
     )
 
     tags = TagField(
         widget=TagWidget(attrs={'placeholder': 'Enter tags'}), required=False
     )
 
+    difficulty_level = forms.ChoiceField(
+        choices=DIFFICULTY_CHOICES,
+    )
+
     class Meta:
         model = Recipe
-        fields = ['title',
-                  'ingredients',
-                  'instructions',
-                  'cooking_time',
-                  'difficulty_level',
-                  'featured_image',
-                  'categories',
-                  'tags'
-                  ]
+        fields = [
+            'title',
+            'ingredients',
+            'instructions',
+            'cooking_time',
+            'difficulty_level',
+            'featured_image',
+            'categories',
+            'tags'
+        ]
         widgets = {
             'tags': TagWidget(),
         }
