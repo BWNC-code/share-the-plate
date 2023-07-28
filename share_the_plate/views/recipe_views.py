@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
-from ..models import Recipe
-from .forms import RecipeForm
+from ..models import Recipe, Comment, Like
+from .forms import RecipeForm, CommentForm
 
 
 @login_required
