@@ -14,7 +14,7 @@
             {% if user == request.user %}
             <form action="{% url 'share_the_plate:deactivate_confirm' user.username %}" method="get">
                 {% csrf_token %}
-                <input type="submit" value="Deactivate my account">
+                <input class="btn btn-primary btn-danger" type="submit" value="Deactivate my account">
             </form>
             {% endif %}
         </div>
