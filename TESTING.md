@@ -108,6 +108,6 @@ Manual testing was also performed successfully for the following components:
 
 ### Account Deactivation Manual
 
-1. Deactivated an account and verified the user was logged out and the account no longer existed.
+1. Deactivated an account and verified the user was logged out and the account is not active.
 
 All manual tests performed successfully, confirming the application works correctly from a user's perspective.
