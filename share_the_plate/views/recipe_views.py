@@ -35,17 +35,23 @@ def recipe_list(request):
     :param request: HTTP request
     :return: Rendered list of recipes
     """
-    main_recipe = Recipe.objects.filter(status=1).order_by("-created_at").first()
+    main_recipe = Recipe.objects.filter(
+        status=1).order_by("-created_at").first()
     categories = Category.objects.all()
 
     category_recipes = []
     for category in categories:
-        recipes = Recipe.objects.filter(status=1, categories=category).order_by(
+        recipes = Recipe.objects.filter(
+            status=1, categories=category).order_by(
             "-created_at"
         )[:3]
         category_recipes.append((category, recipes))
 
-    context = {"main_recipe": main_recipe, "category_recipes": category_recipes}
+    context = {
+        "main_recipe":
+        main_recipe,
+        "category_recipes":
+        category_recipes}
 
     return render(request, "share_the_plate/recipe_list.html", context)
 
@@ -97,12 +103,21 @@ def comment_delete(request, comment_id):
     if comment.user == request.user:
         comment.delete()
         # Redirect back to the recipe_detail page after deleting the comment
-        return redirect("share_the_plate:recipe_detail", slug=comment.recipe.slug)
+        return redirect(
+            "share_the_plate:recipe_detail",
+            slug=comment.recipe.slug
+            )
     else:
         # If the user is not the owner, display an error message
-        messages.error(request, "You do not have permission to delete this comment.")
+        messages.error(
+            request,
+            "You do not have permission to delete this comment."
+            )
         # Redirect back to the recipe_detail page without deleting the comment
-        return redirect("share_the_plate:recipe_detail", slug=comment.recipe.slug)
+        return redirect(
+            "share_the_plate:recipe_detail",
+            slug=comment.recipe.slug
+            )
 
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
@@ -130,7 +145,8 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         if existing_recipe:
             messages.error(
                 self.request,
-                f"A recipe with the title '{form.cleaned_data['title']}' already exists.",
+                f"A recipe with the title '{form.cleaned_data['title']}'\
+                     already exists.",
             )
             return self.form_invalid(form)
 
@@ -155,7 +171,8 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
             # If a recipe with the same title already exists, handle the error
             messages.error(
                 self.request,
-                "A recipe with this title already exists. Please try a different title.",
+                "A recipe with this title already exists.\
+                     Please try a different title.",
             )
             return self.form_invalid(form)
 
@@ -180,7 +197,8 @@ class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return super().get_login_url()
         else:
             return reverse(
-                "share_the_plate:recipe_detail", kwargs={"slug": self.get_object().slug}
+                "share_the_plate:recipe_detail",
+                kwargs={"slug": self.get_object().slug}
             )
 
     def form_valid(self, form):
@@ -207,7 +225,8 @@ class RecipeDeleteView(UserPassesTestMixin, DeleteView):
         return self.get_object().user == self.request.user
 
     def get_success_url(self):
-        # Replace 'user_recipes' with the actual name of the view that displays the user's recipes
+        # Replace 'user_recipes' with the actual name of the view that
+        # displays the user's recipes
         return reverse_lazy(
             "share_the_plate:user_recipes", args=[self.request.user.username]
         )
@@ -223,4 +242,8 @@ def search(request):
         ).distinct()
     else:
         results = Recipe.objects.none()
-    return render(request, "share_the_plate/search_results.html", {"results": results})
+    return render(
+        request,
+        "share_the_plate/search_results.html",
+        {"results": results}
+        )
