@@ -3,13 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import Http404
-from .forms import SignUpForm
-from django.contrib.auth import login, logout
-from ..models import Recipe, Like
 from cloudinary import CloudinaryImage
+from django.contrib.auth import login, logout
+from .forms import SignUpForm
+from ..models import Recipe
 
 
 def check_user_exists(view_func):
@@ -141,8 +140,8 @@ def signup(request):
 def deactivate_confirm(request, username):
     if request.method == 'POST':
         # Ensure the user is deactivating their own account
-        User = get_user_model()
-        user = get_object_or_404(User, username=username)
+        user_model = get_user_model()
+        user = get_object_or_404(user_model, username=username)
 
         # The user confirmed they want to deactivate their own account.
         # Deactivate it and log them out.
