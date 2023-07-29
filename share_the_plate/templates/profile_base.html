@@ -7,9 +7,17 @@
         <div class="col-12 col-md-3">
             <div class="sidebar mb-4 mb-md-0">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'share_the_plate:profile_info' user.username %}">Profile Info</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'share_the_plate:user_recipes' user.username %}">My Recipes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'share_the_plate:liked_recipes' user.username %}">Liked Recipes</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'share_the_plate:profile_info' user.username %}">Profile
+                            Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'share_the_plate:user_recipes' user.username %}">My Recipes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'share_the_plate:liked_recipes' user.username %}">Liked
+                            Recipes</a>
+                    </li>
                 </ul>
             </div>
         </div>
