@@ -37,8 +37,7 @@
   - [Remote Deployment](#remote-deployment)
 - [Credits and Acknowledgements](#credits-and-acknowledgements)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
+[Table of contents generated with markdown-toc](http://ecotrust-canada.github.io/markdown-toc/)
 
 ## Introduction
 
@@ -70,7 +69,7 @@ The User login page allows input of email and password to log in as a user of th
 
 #### Recipe List View
 
-The Recipe List View page displays a list of recipes either ordered by most recently submitted or based on a search query. Each recipe card displays a summary of the recipe and an option to view the full recipe. 
+The Recipe List View page displays a list of recipes either ordered by most recently submitted or based on a search query. Each recipe card displays a summary of the recipe and an option to view the full recipe.
 ![recipe_list_web](./assets/images/readme_images/recipe_list_web.png "Recipe list desktop")![recipe_list_mobile](./assets/images/readme_images/recipe_list_mobile.png "Recipe list mobile")
 
 #### Full Recipe View
@@ -130,7 +129,7 @@ Users can add a new recipe by filling out a form with the recipe's details. The 
 
 ![remove-recipe](./screenshots/remove-recipe.png "Remove recipe page")
 
-Users can delete any of their recipes by going to the recipe's detail page and clicking the 'Delete' button. The user is asked to confirm the deletion to prevent accidental data loss. 
+Users can delete any of their recipes by going to the recipe's detail page and clicking the 'Delete' button. The user is asked to confirm the deletion to prevent accidental data loss.
 
 ### Update a recipe
 
@@ -142,7 +141,7 @@ Users can edit any of their recipes by going to the recipe's detail page and cli
 
 ![display-recipes](./screenshots/display-recipes.png "Display recipes page")
 
-The user's profile page displays a list of all their recipes, along with the recipe's title, an image if available, and buttons to view, edit, or delete each recipe. 
+The user's profile page displays a list of all their recipes, along with the recipe's title, an image if available, and buttons to view, edit, or delete each recipe.
 
 ### Search for recipes
 
@@ -152,7 +151,7 @@ Users can search for recipes by title using the search bar. The search function 
 
 ## Features left to implement
 
-Future implementations could include the ability for users to follow other users and get updates when they post new recipes, as well as the ability to categorize recipes into different cuisine types or meal types for easier searching.
+Future implementations may focus on enhancing user interaction and engagement by introducing features like recipe rating, social sharing, advanced search filters, user profile customization, recipe collections and analytics. These additions will create a thriving community of food enthusiasts who can share their passion for cooking and discover a wide range of delicious recipes.
 
 ## Technology Used
 
@@ -184,7 +183,7 @@ This library is used as the PostgreSQL database adapter for Python. It enables D
 
 ### Python Linting
 
-All code passed through PEP8 linter with no errors
+All code passed through PEP8 linter (pylint) with no errors
 
 ### Feature Testing
 
@@ -208,9 +207,7 @@ This section describes the process of obtaining a copy of this project's files i
 
 - Clone or download the repository files.
 
-- Create a virtual environment using `python -m venv venv`
-
-- Activate the virtual environment using `source venv/bin/activate`
+- Open in a development environment like Gitpod or Codeanywhere
 
 - Install the necessary packages using `pip install -r requirements.txt`
 
