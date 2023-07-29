@@ -12,7 +12,7 @@
 
             <!-- Deactivate account button -->
             {% if user == request.user %}
-            <form action="{% url 'share_the_plate:deactivate_confirm' user.username %}" method="post">
+            <form action="{% url 'share_the_plate:deactivate_confirm' user.username %}" method="get">
                 {% csrf_token %}
                 <input type="submit" value="Deactivate my account">
             </form>
