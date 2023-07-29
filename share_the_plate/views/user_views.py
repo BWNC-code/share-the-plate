@@ -2,14 +2,26 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import Http404
 from .forms import SignUpForm
 from django.contrib.auth import login, logout
 from ..models import Recipe, Like
-from .other_views import check_user_exists
 from cloudinary import CloudinaryImage
+
+
+def check_user_exists(view_func):
+    """Decorator to check if the user exists."""
+    def _wrapped_view_func(request, *args, **kwargs):
+        username = kwargs.get('username')
+        try:
+            User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise Http404("User does not exist")
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view_func
 
 
 class CustomLoginView(LoginView):
