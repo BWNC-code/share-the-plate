@@ -78,8 +78,6 @@ Manual testing was also performed successfully for the following components:
 
 4. Navigated to the user profile and verified all details were displayed correctly.
 
-5. Updated profile details and verified changes were saved and displayed correctly.
-
 ### Recipe Interaction
 
 1. Browsed the list of recipes and verified all information was displayed correctly for each recipe.
