@@ -1,0 +1,42 @@
+/* CSS for recipe detail page */
+.container {
+    margin-top: 30px;
+  }
+  
+  /* Center align the title and heart icon */
+  .card-title {
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-title h1 {
+    margin-right: 10px;
+  }
+  
+  /* Style the heart icon */
+  .btn-light {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+  }
+  
+  /* Set the image to be responsive and round the corners */
+  .img-fluid {
+    border-radius: 10px;
+  }
+  
+  /* Move the edit and delete buttons to the right */
+  .d-flex.justify-content-between {
+    margin-top: 20px;
+  }
+  
+  /* Remove bullet points from the ingredients and tags list */
+  .list-group-item {
+    border: none;
+    padding-left: 0;
+  }
+  
+  /* Add margin between the Ingredients and Tags sections */
+  .card:not(:last-child) {
+    margin-bottom: 20px;
+  }
