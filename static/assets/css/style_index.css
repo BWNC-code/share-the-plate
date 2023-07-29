@@ -23,10 +23,6 @@
     height: 100vh;
 }
 
-.row>* {
-    padding: 0;
-}
-
 .left-section{
     width: 50%;
 }
@@ -88,5 +84,8 @@
     .navbar-custom .navbar-brand {
         color: #212529;
     }
-    /* You can continue with other elements and their color changes */
+    .row>* {
+        padding-right: 0;
+    }
+    
 }
