@@ -7,30 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Adamina&family=Anek+Latin&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Adamina&family=Anek+Latin&display=swap"
+        rel="stylesheet">
+    <link href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style_index.css' %}">
     <title>Share the Plate</title>
 </head>
 
 <body>
-    <div class="container-fluid p-0">
+    <div class="main-container">
         <div class="row no-gutters">
-            <div class="col-md-6 half-screen-img d-flex align-items-start justify-content-center">
+            <div class="left-section col-lg-6 d-none d-lg-block">
+                <div class="half-screen-img d-flex align-items-start justify-content-center">
+                    <h1 class="site-brand">share the plate</h1>
+                </div>
             </div>
-            <div class="brand text-center py-3 mobile-brand">
-                <h1>share the plate</h1>
-            </div>
-            <div class="col-md-6 d-flex flex-column">
+            <div class="right-section col-lg-6 col-md-12 d-flex flex-column">
+
                 <!-- Navbar -->
-                <nav class="navbar navbar-custom navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+                <nav class="navbar navbar-custom navbar-expand-md navbar-light bg-light d-flex">
+                    <div class="brand text-center py-3 mobile-brand d-md-none mr-auto">
+                        <h1>share the plate</h1>
+                    </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav  nav-fill">
+                        <ul class="navbar-nav justify-content-center nav-fill">
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'share_the_plate:recipe_list' %}">Recipes</a>
                             </li>
@@ -53,30 +58,32 @@
                         </ul>
                     </div>
                 </nav>
-
-                <!-- Hero Section -->
-                <div class="d-flex flex-column justify-content-center align-items-center py-5 hero">
-                    {% if user.is_authenticated %}
-                    <h1 class="display-4">Welcome, {{ user.username }}</h1>
-                    <p class="lead">Discover new recipes, share your own, and connect with other food lovers on Share
-                        the Plate.</p>
-                    <a href="{% url 'share_the_plate:recipe_create' %}" class="btn btn-primary">Create New Recipe</a>
-                    {% else %}
-                    <h1 class="display-4">Explore and Learn</h1>
-                    <p class="lead">Discover new recipes, share your own, and connect with other food lovers on Share
-                        the Plate.</p>
-                    <a href="{% url 'share_the_plate:login' %}" class="btn btn-primary">Login/Signup</a>
-                    {% endif %}
+                <div class="hero-image">
+                    <!-- Hero Section -->
+                    <div class="d-flex flex-column justify-content-center align-items-center py-5 px-3 hero">
+                        {% if user.is_authenticated %}
+                        <h1 class="display-4">Welcome, {{ user.username }}</h1>
+                        <p class="lead">Discover new recipes, share your own, and connect with other food lovers on
+                            Share
+                            the Plate.</p>
+                        <a href="{% url 'share_the_plate:recipe_create' %}" class="btn btn-primary">Create New
+                            Recipe</a>
+                        {% else %}
+                        <h1 class="display-4">Explore and Learn</h1>
+                        <p class="lead">Discover new recipes, share your own, and connect with other food lovers on
+                            Share
+                            the Plate.</p>
+                        <a href="{% url 'share_the_plate:login' %}" class="btn btn-primary">Login/Signup</a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-     <!-- Add the link to jQuery -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-     <!-- Add the link to the Bootstrap JavaScript library -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+
 </body>
 
 </html>

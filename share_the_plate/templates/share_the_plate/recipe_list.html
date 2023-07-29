@@ -1,21 +1,39 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
   <div class="container">
-    <h1>Recipes</h1>
     <div class="row">
-      {% for recipe in recipes %}
-        <div class="col-md-4">
+      <div class="col-md-12">
+        <!-- Main recipe card -->
+        {% if main_recipe %}
           <div class="card mb-4">
-            <img class="card-img-top" src="{{ recipe.featured_image.url }}" alt="{{ recipe.title }}">
+            <img src="{% if main_recipe.featured_image == 'placeholder' %}{% static 'assets/images/placeholder_image.jpg' %}{% else %}{{ main_recipe.featured_image.url }}{% endif %}" alt="{{ main_recipe.title }}">
             <div class="card-body">
-              <h5 class="card-title">{{ recipe.title }}</h5>
-              <a href="{% url 'share_the_plate:recipe_detail' recipe.slug %}" class="btn btn-primary">View Recipe</a>
+              <h5 class="card-title">{{ main_recipe.title }}</h5>
+              <a href="{% url 'share_the_plate:recipe_detail' main_recipe.slug %}" class="btn btn-primary">View Recipe</a>
             </div>
           </div>
+        {% endif %}
+      </div>
+      <!-- Category-wise recipe cards -->
+      {% for category, recipes in category_recipes %}
+        <div class="col-md-12">
+          <h2 class="category-title">{{ category.name }}</h2>
+          <div class="row">
+            {% for recipe in recipes %}
+              <div class="col-md-4">
+                <div class="card mb-4">
+                  <img class="card-img-top" src="{{ recipe.featured_image.url }}" alt="{{ recipe.title }}">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ recipe.title }}</h5>
+                    <a href="{% url 'share_the_plate:recipe_detail' recipe.slug %}" class="btn btn-primary">View Recipe</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
         </div>
-      {% empty %}
-        <p>No recipes found.</p>
       {% endfor %}
     </div>
   </div>

@@ -4,6 +4,7 @@
   <h2>Are you sure you want to deactivate your account?</h2>
   <form method="post">
     {% csrf_token %}
-    <button type="submit">Yes, deactivate my account</button>
+    <button type="submit" class="btn btn-primary">Yes, deactivate my account</button>
+    <a href="{% url 'share_the_plate:profile_info' user.username %}" class="btn btn-secondary">No, take me back</a>
   </form>
 {% endblock %}

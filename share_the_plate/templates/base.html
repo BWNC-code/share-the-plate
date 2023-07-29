@@ -8,71 +8,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Adamina&family=Anek+Latin&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Adamina&family=Anek+Latin&display=swap"
+        rel="stylesheet">
+    <link href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+    {% block extra_css %}{% endblock %}
     <title>{% block title %}Share the Plate{% endblock %}</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'share_the_plate:index' %}">Share the<br>Plate</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <form class="d-flex my-2 my-lg-0" method="get" action="{% url 'share_the_plate:search' %}">
-                <input class="form-control flex-grow-1 mr-2" type="search" placeholder="Search" aria-label="Search"
-                    name="q">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'share_the_plate:index' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'share_the_plate:recipe_list' %}">All Recipes</a>
-                </li>
-                <!-- More navigation links here -->
-            </ul>
-            {% if request.user.is_authenticated %}
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link"
-                        href="{% url 'share_the_plate:profile_info' request.user.username %}">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'share_the_plate:logout' %}">Log Out</a>
-                </li>
-            </ul>
-            {% else %}
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'share_the_plate:login' %}">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'share_the_plate:signup' %}">Sign Up</a>
-                </li>
-            </ul>
-            {% endif %}
+    <div class="main-container">
+        <div class="left-section d-none d-md-block">
+            <!-- Dark background div with site brand -->
+            <h1 class="site-brand">share the plate</h1>
         </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                {% for message in messages %}
-                <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
-                    {{ message | safe }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="right-section">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand d-md-none" href="{% url 'share_the_plate:index' %}">Share the<br>Plate</a>
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <form class="d-flex my-2 my-lg-0" method="get" action="{% url 'share_the_plate:search' %}">
+                        <input class="form-control flex-grow-1 mr-2" type="search" placeholder="Search"
+                            aria-label="Search" name="q">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'share_the_plate:index' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'share_the_plate:recipe_list' %}">All Recipes</a>
+                        </li>
+                        <!-- More navigation links here -->
+                    </ul>
+                    {% if request.user.is_authenticated %}
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="{% url 'share_the_plate:recipe_create' %}" class="nav-link">Create a Recipe</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="{% url 'share_the_plate:profile_info' request.user.username %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'share_the_plate:logout' %}">Log Out</a>
+                        </li>
+                    </ul>
+                    {% else %}
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'share_the_plate:login' %}">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'share_the_plate:signup' %}">Sign Up</a>
+                        </li>
+                    </ul>
+                    {% endif %}
                 </div>
-                {% endfor %}
+            </nav>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        {% for message in messages %}
+                        <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
+                            {{ message | safe }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="main-content">
+                {% block content %}{% endblock %}
             </div>
         </div>
-    </div>
-    <div class="main-content">
-        {% block content %}{% endblock %}
     </div>
 
     <footer>
@@ -87,11 +101,8 @@
         }, 2500);
     </script>
 
-    <!-- Add the link to jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-    <!-- Add the link to the Bootstrap JavaScript library -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
