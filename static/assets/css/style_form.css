@@ -8,43 +8,35 @@ form {
 /* Form fields */
 form label {
     font-weight: bold;
+    display: block;
 }
 
 form input[type="text"],
-form textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
+form input[type="password"],
+form textarea,
 form select {
     width: 100%;
     padding: 8px;
-    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+/* Remove the bullets from the categories */
+form ul {
+    list-style-type: none;
+    padding: 0;
 }
 
 /* Category checkboxes */
 .form-check-label {
     margin-right: 10px;
-}
-
-/* Submit button */
-form button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
+    display: block;
 }
 
 /* Additional styles for larger screens */
 @media (min-width: 768px) {
+
     /* Two-column layout for cooking time and difficulty level */
     .row .col-md-6 {
         width: 50%;
