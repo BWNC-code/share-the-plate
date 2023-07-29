@@ -10,76 +10,153 @@ body {
 .navbar {
     background-color: #333;
     color: #fff;
+    font-family: 'Anek Latin', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
+    text-transform: uppercase;
 }
 
-.navbar a {
-    color: #fff;
-}
-
+.navbar a,
 .navbar-toggler {
-    border-color: #fff;
+    color: #fff;
 }
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* Styling for the sidebar */
-.sidebar {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    position: relative;
+.navbar-brand,
+.site-brand {
+    font-family: 'Adamina';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 49px;
+    letter-spacing: 0.2em;
+    text-transform: lowercase;
+    color: #D5D5D5;
+    margin: 0;
+}
+
+.main-container{
     height: auto;
-    min-width: auto;
-    overflow: auto;
+    min-height: 100vh;
 }
 
-.sidebar a {
-    color: #fff;
+.card-img-top{
+    height: 40vw;
+    object-fit: cover
 }
-
-/* Styling for the main content */
-.main-content {
-    margin-left: auto;
-    padding: 20px;
-}
-
-/* Styling for desktop screens */
-@media (min-width: 769px) {
-    .sidebar {
-        position: fixed;
-        height: 100%;
-        min-width: 200px;
-    }
-    
-    .main-content {
-        margin-left: 200px;
-    }
-}
-
-/* Index styling */
-
-/* CSS for the left side image */
-.half-screen-img {
-    background: url('../images/index_hero.jpg') center / cover no-repeat;
-    height: 100vh;
-}
-
-/* Styling for the navbar */
-.navbar {
+/* Add the desired background color and other styles for the left-section */
+.left-section {
     background-color: #333;
     color: #fff;
-    position: sticky; /* To make the navbar stick to the top of the right side column */
-    top: 0; /* To position it at the top */
-    z-index: 1000; /* To ensure it stays above the other content */
+    box-sizing: border-box;
+    width: 20%;
 }
 
-@media (max-width: 991.98px) {
-    .half-screen-img {
-        height: 200px;
+.right-section{
+    width: 100%;
+}
+
+/* On large screens, set the height of the main content div to 100vh (100% of viewport height) to fill the screen */
+@media (min-width: 768px) {
+    .main-container {
+        display: flex;
+        flex-direction: row;
     }
-    .navbar {
-        position: static; /* To not stick the navbar to the top on small screens */
+    .right-section {
+        width: 80%;
     }
 }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .navbar{
+        background-color: #fff !important;
+
+        color: #0F0F0F;
+    }
+    .navbar .nav-link {
+        color: #212529;
+    }
+    .navbar .navbar-brand {
+        color: #212529;
+    }
+    /* You can continue with other elements and their color changes */
+}
+
+
+/* Style for the recipe title link */
+.recipe-title-link {
+    color: #333; /* Set the text color to a darker shade */
+    text-decoration: none; /* Remove the underline */
+    transition: color 0.2s; /* Add a smooth transition for color changes on hover */
+  
+    /* Optional: Add additional styles to enhance the look of the link */
+    font-size: 20px;
+    font-weight: bold;
+}
+  
+/* Hover effect: Change the text color on hover */
+.recipe-title-link:hover {
+    color: #007bff; /* Set the text color to the Bootstrap primary color */
+}
+
+/* Recipe list */
+
+.recipe-container {
+    background: #EFEFEF;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .recipe-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+  }
+  
+  .page-title {
+    font-family: 'Anek Latin';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
+    text-transform: uppercase;
+    color: #0F0F0F;
+    margin: 58px 54px;
+  }
+  
+  .recipe-card {
+    width: 551px;
+    height: 519px;
+  }
+  
+  .recipe-img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .recipe-body {
+    background: #ECA999;
+    text-align: center;
+  }
+  
+  .recipe-title {
+    font-family: 'Adamina';
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 54px;
+    text-transform: uppercase;
+    color: #000000;
+  }
+  
+  .recipe-desc {
+    font-family: 'Anek Latin';
+    font-weight: 400;
+  }
+  
