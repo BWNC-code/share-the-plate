@@ -92,7 +92,7 @@ Manual testing was also performed successfully for the following components:
 
 5. Deleted a recipe and verified it was removed from the list of recipes and the main recipe list.
 
-6. Liked and unliked a recipe and verified the like count changed appropriately.
+6. Liked and unliked a recipe and verified the recipe appeared in users like recipes.
 
 ### Search Function Manual
 
@@ -104,9 +104,7 @@ Manual testing was also performed successfully for the following components:
 
 1. Added a comment to a recipe and verified it was displayed correctly.
 
-2. Edited a comment and verified changes were saved and displayed correctly.
-
-3. Deleted a comment and verified it was removed from the list of comments.
+2. Deleted a comment and verified it was removed from the list of comments.
 
 ### Account Deactivation Manual
 
