@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.db import IntegrityError
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q, Prefetch
 from ..models import Recipe, Comment, Like, Category
@@ -34,17 +35,19 @@ def recipe_list(request):
     :param request: HTTP request
     :return: Rendered list of recipes
     """
-    main_recipe = Recipe.objects.filter(status=1).order_by('-created_at').first()
+    main_recipe = Recipe.objects.filter(status=1).order_by("-created_at").first()
     categories = Category.objects.all()
 
     category_recipes = []
     for category in categories:
-        recipes = Recipe.objects.filter(status=1, categories=category).order_by('-created_at')[:3]
+        recipes = Recipe.objects.filter(status=1, categories=category).order_by(
+            "-created_at"
+        )[:3]
         category_recipes.append((category, recipes))
 
-    context = {'main_recipe': main_recipe, 'category_recipes': category_recipes}
+    context = {"main_recipe": main_recipe, "category_recipes": category_recipes}
 
-    return render(request, 'share_the_plate/recipe_list.html', context)
+    return render(request, "share_the_plate/recipe_list.html", context)
 
 
 def recipe_detail(request, slug):
@@ -94,11 +97,12 @@ def comment_delete(request, comment_id):
     if comment.user == request.user:
         comment.delete()
         # Redirect back to the recipe_detail page after deleting the comment
-        return redirect('share_the_plate:recipe_detail', slug=comment.recipe.slug)
+        return redirect("share_the_plate:recipe_detail", slug=comment.recipe.slug)
     else:
-        # If the user is not the owner, handle it accordingly (e.g., show an error message)
-        # You can decide what to do in this case based on your application's logic
-        pass
+        # If the user is not the owner, display an error message
+        messages.error(request, "You do not have permission to delete this comment.")
+        # Redirect back to the recipe_detail page without deleting the comment
+        return redirect("share_the_plate:recipe_detail", slug=comment.recipe.slug)
 
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
@@ -120,18 +124,40 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         :return: HTTP response
         """
         form.instance.user = self.request.user
+        existing_recipe = Recipe.objects.filter(
+            title=form.cleaned_data["title"]
+        ).first()
+        if existing_recipe:
+            messages.error(
+                self.request,
+                f"A recipe with the title '{form.cleaned_data['title']}' already exists.",
+            )
+            return self.form_invalid(form)
+
         response = super().form_valid(form)
         form.instance.tags.add(*self.request.POST.get("tags").split(","))
         return response
 
-    def form_invalid(self, form):
-        """
-        Overwrite the form_invalid method to include a message.
-        """
-        for field, errors in form.errors.items():
-            for error in errors:
-                messages.error(self.request, f"{field}: {error}")
-        return super().form_invalid(form)
+    def form_valid(self, form):
+        try:
+            # Set the current user as the author of the recipe before saving
+            form.instance.user = self.request.user
+
+            # Attempt to save the form
+            response = super().form_valid(form)
+
+            # If the form is saved successfully, add the tags to the recipe
+            form.instance.tags.add(*self.request.POST.get("tags").split(","))
+
+            # Redirect to the detail view of the created recipe
+            return response
+        except IntegrityError as e:
+            # If a recipe with the same title already exists, handle the error
+            messages.error(
+                self.request,
+                "A recipe with this title already exists. Please try a different title.",
+            )
+            return self.form_invalid(form)
 
 
 class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -141,7 +167,8 @@ class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = CommentForm()
+        recipe_instance = self.get_object()
+        context["form"] = RecipeForm(instance=recipe_instance)
         return context
 
     def test_func(self):
@@ -153,18 +180,16 @@ class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return super().get_login_url()
         else:
             return reverse(
-                "share_the_plate:recipe_detail",
-                kwargs={"slug": self.get_object().slug}
+                "share_the_plate:recipe_detail", kwargs={"slug": self.get_object().slug}
             )
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        if self.request.method == "POST":
-            form = RecipeForm(
-                self.request.POST, self.request.FILES, instance=self.object
-            )
-            if form.is_valid():
-                self.object = form.save(commit=False)
+        self.object.tags.clear()
+        for tag in form.cleaned_data["tags"]:
+            self.object.tags.add(tag)
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
         self.object.tags.clear()
         for tag in form.cleaned_data["tags"]:
@@ -177,11 +202,15 @@ class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class RecipeDeleteView(UserPassesTestMixin, DeleteView):
     model = Recipe
     template_name = "share_the_plate/recipe_confirm_delete.html"
-    success_url = reverse_lazy("share_the_plate:user_recipes")
 
     def test_func(self):
-        obj = self.get_object()
-        return obj.user == self.request.user
+        return self.get_object().user == self.request.user
+
+    def get_success_url(self):
+        # Replace 'user_recipes' with the actual name of the view that displays the user's recipes
+        return reverse_lazy(
+            "share_the_plate:user_recipes", args=[self.request.user.username]
+        )
 
 
 def search(request):
@@ -194,7 +223,4 @@ def search(request):
         ).distinct()
     else:
         results = Recipe.objects.none()
-    return render(request,
-                  "share_the_plate/search_results.html",
-                  {"results": results}
-                  )
+    return render(request, "share_the_plate/search_results.html", {"results": results})
