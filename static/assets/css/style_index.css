@@ -1,0 +1,92 @@
+/* Index styling */
+
+/* CSS for the left side image */
+.half-screen-img {
+    background: url('../images/index_hero.jpg') center / cover no-repeat;
+    height: 100vh;
+}
+
+/* Styling for the navbar */
+.brand {
+    font-family: 'Adamina';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 49px;
+    letter-spacing: 0.2em;
+    text-transform: lowercase;
+    color: #D5D5D5;
+}
+
+.hero-image{
+    background: none;
+    height: 100vh;
+}
+
+.row>* {
+    padding: 0;
+}
+
+.left-section{
+    width: 50%;
+}
+
+.hero {
+    background-color: white;
+    margin-top: 30%;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .hero-image{
+        background: url('../images/index_hero.jpg') center / cover no-repeat;
+        height: 100vh;
+    }
+    .main-container {
+        display: block;
+    }
+    .right-section {
+        width: 50%;
+    }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .right-section {
+        width: 100%;
+    }
+    .left-section {
+        display: none;
+    }
+    .navbar-custom {
+        background-color: #343a40 !important;
+        color: #fff;
+    }
+    .navbar-custom .nav-link {
+        color: #fff;
+    }
+    .navbar-custom .navbar-brand {
+        color: #fff;
+    }
+    .hero-image{
+        background: url('../images/index_hero.jpg') center / cover no-repeat;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .hero-image{
+        background: none;
+    }
+    .navbar-custom {
+        background-color: #f8f9fa !important;
+        color: #212529;
+    }
+    .navbar-custom .nav-link {
+        color: #212529;
+    }
+    .navbar-custom .navbar-brand {
+        color: #212529;
+    }
+    /* You can continue with other elements and their color changes */
+}
