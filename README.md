@@ -2,35 +2,43 @@
 
 ## Table of Contents
 
-- [SHARE THE PLATE](#share-the-plate)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [UI Decisions](#ui-decisions)
-  - [Features](#features)
-    - [Create a new user](#create-a-new-user)
-    - [Login as a user](#login-as-a-user)
-    - [Main menu function](#main-menu-function)
-    - [Add a recipe](#add-a-recipe)
-    - [Remove a recipe](#remove-a-recipe)
-    - [Update a recipe](#update-a-recipe)
-    - [Display recipes](#display-recipes)
-    - [Search for recipes](#search-for-recipes)
-  - [Features left to implement](#features-left-to-implement)
-  - [Technology Used](#technology-used)
-    - [Python](#python)
-      - [Libraries](#libraries)
-    - [Django](#django)
-  - [Testing](#testing)
-    - [Python Linting](#python-linting)
-    - [Manual Feature Testing](#manual-feature-testing)
-  - [Bugs](#bugs)
-  - [Deployment](#deployment)
-    - [Cloning and Forking](#cloning-and-forking)
-    - [Local Deployment](#local-deployment)
-    - [Remote Deployment](#remote-deployment)
-  - [Credits and Acknowledgements](#credits-and-acknowledgements)
+- [Introduction](#introduction)
+- [UI Decisions](#ui-decisions)
+- [Planning and Design](#planning-and-design)
+  - [Wireframes](#wireframes)
+    - [Homepage](#homepage)
+    - [UserLogin](#userlogin)
+    - [Recipe List View](#recipe-list-view)
+    - [Full Recipe View](#full-recipe-view)
+    - [Recipe Management](#recipe-management)
+  - [ERD (Entity-Relationship Diagram)](#erd--entity-relationship-diagram-)
+  - [Use Cases](#use-cases)
+- [Features](#features)
+  - [Create a new user](#create-a-new-user)
+  - [Login as a user](#login-as-a-user)
+  - [Main menu function](#main-menu-function)
+  - [Add a recipe](#add-a-recipe)
+  - [Remove a recipe](#remove-a-recipe)
+  - [Update a recipe](#update-a-recipe)
+  - [Display recipes](#display-recipes)
+  - [Search for recipes](#search-for-recipes)
+- [Features left to implement](#features-left-to-implement)
+- [Technology Used](#technology-used)
+  - [Python](#python)
+    - [Libraries](#libraries)
+  - [Django](#django)
+- [Testing](#testing)
+  - [Python Linting](#python-linting)
+  - [Manual Feature Testing](#manual-feature-testing)
+- [Bugs](#bugs)
+- [Deployment](#deployment)
+  - [Cloning and Forking](#cloning-and-forking)
+  - [Local Deployment](#local-deployment)
+  - [Remote Deployment](#remote-deployment)
+- [Credits and Acknowledgements](#credits-and-acknowledgements)
 
-[Table of contents generated with markdown-toc](http://ecotrust-canada.github.io/markdown-toc/)
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 ## Introduction
 
@@ -152,22 +160,33 @@ Future implementations could include the ability for users to follow other users
 
 #### Libraries
 
-- Django: The primary framework used to build the application.
-- Pillow: A Python imaging library used to support images in models.
-
-### Django
+##### Django
 
 Django is the main framework used for this project. It is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It includes tools for user authentication, form handling, admin interface, and more.
+
+##### Django Crispy Forms
+
+This library is used to control the rendering behavior of Django forms in a DRY way. It allows us to quickly style forms using various CSS frameworks with minimal code, helping to maintain a clean and efficient workflow.
+
+##### Django Taggit
+
+A reusable Django application designed to handle simple tagging. This application is used for adding, retrieving, updating, and deleting tags in the application.
+
+##### Cloudinary
+
+This is a cloud-based service that provides an end-to-end image and video management solution including uploads, storage, manipulations, optimizations and delivery. In this project, it's used for handling image uploads and serving.
+
+##### psycopg2-binary
+
+This library is used as the PostgreSQL database adapter for Python. It enables Django to interact smoothly with PostgreSQL.
 
 ## Testing
 
 ### Python Linting
 
-![linter-results](./screenshots/py-linter.png "Python linter results")
-
 All code passed through PEP8 linter with no errors
 
-### Manual Feature Testing
+### Feature Testing
 
 All manual test cases can be found in [TESTING.md](./TESTING.md)
 
