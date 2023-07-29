@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 from django.contrib.auth.models import User
-from .models import Recipe, Category, Comment, Profile
-from taggit.models import Tag
 from django_summernote.admin import SummernoteModelAdmin
+from .models import Recipe, Category, Comment, Profile
+
 
 # Register your models here.
 
