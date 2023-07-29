@@ -134,8 +134,8 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "share_the_plate/recipe_list.html")
         self.assertEqual(
-            len(response.context["recipes"]), 1
-        )  # Check if the correct number of recipes is retrieved
+            len(response.context["category_recipes"]), 1
+        )  # Check one main recipe is retrieved
 
     def test_recipe_detail(self):
         response = self.client.get(
