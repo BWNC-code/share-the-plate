@@ -87,6 +87,20 @@ def recipe_detail(request, slug):
     )
 
 
+@login_required
+def comment_delete(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    # Check if the user is the owner of the comment
+    if comment.user == request.user:
+        comment.delete()
+        # Redirect back to the recipe_detail page after deleting the comment
+        return redirect('share_the_plate:recipe_detail', slug=comment.recipe.slug)
+    else:
+        # If the user is not the owner, handle it accordingly (e.g., show an error message)
+        # You can decide what to do in this case based on your application's logic
+        pass
+
+
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     """
     Display a form dor creating a new recipe.
