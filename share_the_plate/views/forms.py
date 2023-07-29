@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from ..models import Profile, Recipe, Category, Comment
 from taggit.forms import TagWidget, TagField
+from PIL import Image
+import cloudinary.uploader
 
 
 class SignUpForm(UserCreationForm):
@@ -25,11 +27,18 @@ class SignUpForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
+            profile_picture = self.cleaned_data.get('profile_picture')
+            if profile_picture:
+                upload_result = cloudinary.uploader.upload(
+                    profile_picture.file
+                )
+                profile_picture_url = upload_result['url']
+            else:
+                profile_picture_url = 'default_profile.jpg'
             Profile.objects.create(
                 user=user,
                 bio=self.cleaned_data['bio'],
-                profile_picture=self.cleaned_data.get('profile_picture',
-                                                      'default_profile.jpg')
+                profile_picture=profile_picture_url
             )
         return user
 
@@ -68,11 +77,13 @@ class RecipeForm(forms.ModelForm):
         ]
         widgets = {
             'tags': TagWidget(),
+            'ingredients': forms.Textarea(
+                attrs={'placeholder': 'Enter ingredients, one line each.'}
+            ),
+            'instructions': forms.Textarea(
+                attrs={'placeholder': 'Enter instructions, one line each.'}
+            ),
         }
-
-    def __init__(self, *args, **kwargs):
-        super(RecipeForm, self).__init__(*args, **kwargs)
-        self.fields['tags'].widget = forms.TextInput()
 
 
 class CommentForm(forms.ModelForm):
