@@ -2,21 +2,35 @@
 {% load cloudinary %}
 
 {% block profile_content %}
-    <div class="d-flex align-items-center">
-        <div class="mr-3">
-            {% cloudinary user.profile.profile_picture width="100" height="100" crop="fill" class="rounded-circle" %}
-        </div>
-        <div>
-            <h1>{{ user.username }}</h1>
-            <p>{{ user.profile.bio }}</p>
+<div class="d-flex align-items-center">
+    <div class="mr-3">
+        {% load cloudinary %}
 
-            <!-- Deactivate account button -->
-            {% if user == request.user %}
-            <form action="{% url 'share_the_plate:deactivate_confirm' user.username %}" method="get">
-                {% csrf_token %}
-                <input class="btn btn-primary btn-danger" type="submit" value="Deactivate my account">
-            </form>
-            {% endif %}
+        {% if user.profile.profile_picture %}
+        <!-- If the user has a Cloudinary profile picture, display it as a small circle -->
+        <div class="rounded-circle overflow-hidden" style="width: 50px; height: 50px;">
+            <img src="{% cloudinary user.profile.profile_picture %}" alt="Profile Picture" class="img-fluid">
         </div>
+        {% else %}
+        <!-- If there's no Cloudinary profile picture, load the default image as a small circle -->
+        <div class="rounded-circle overflow-hidden" style="width: 50px; height: 50px;">
+            <img src="https://res.cloudinary.com/share-the-plate-cloud/image/upload/v1690650210/static/assets/images/default_profile.eba7a5674add.jpg"
+                alt="Default Profile Picture" class="img-fluid">
+        </div>
+        {% endif %}
+
     </div>
+    <div>
+        <h1>{{ user.username }}</h1>
+        <p>{{ user.profile.bio }}</p>
+
+        <!-- Deactivate account button -->
+        {% if user == request.user %}
+        <form action="{% url 'share_the_plate:deactivate_confirm' user.username %}" method="get">
+            {% csrf_token %}
+            <input class="btn btn-primary btn-danger" type="submit" value="Deactivate my account">
+        </form>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
