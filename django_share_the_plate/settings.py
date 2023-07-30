@@ -39,6 +39,7 @@ ALLOWED_HOSTS = [
     '8000-bwnccode-sharetheplate-ktokfwe9u2x.ws-eu101.gitpod.io',
     '8000-bwnccode-sharetheplate-ktokfwe9u2x.ws-eu102.gitpod.io',
     'share-the-plate-592e2406d3d5.herokuapp.com',
+    'https://share-the-plate-592e2406d3d5.herokuapp.com/',
     'localhost'
     ]
 
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'django_share_the_plate.urls'
