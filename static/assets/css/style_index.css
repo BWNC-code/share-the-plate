@@ -2,7 +2,7 @@
 
 /* CSS for the left side image */
 .half-screen-img {
-    background: url('../images/index_hero.jpg') center / cover no-repeat;
+    background: url('https://res.cloudinary.com/share-the-plate-cloud/image/upload/v1690390674/static/assets/images/index_hero.eb2cb7de0312.jpg') center / cover no-repeat;
     height: 100vh;
 }
 
@@ -35,7 +35,7 @@
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     .hero-image{
-        background: url('../images/index_hero.jpg') center / cover no-repeat;
+        background: url('https://res.cloudinary.com/share-the-plate-cloud/image/upload/v1690390674/static/assets/images/index_hero.eb2cb7de0312.jpg') center / cover no-repeat;
         height: 100vh;
     }
     .main-container {
@@ -65,7 +65,7 @@
         color: #fff;
     }
     .hero-image{
-        background: url('../images/index_hero.jpg') center / cover no-repeat;
+        background: url('https://res.cloudinary.com/share-the-plate-cloud/image/upload/v1690390674/static/assets/images/index_hero.eb2cb7de0312.jpg') center / cover no-repeat;
     }
 }
 
