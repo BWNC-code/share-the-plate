@@ -41,7 +41,7 @@
 
 ## Introduction
 
-![Home page](./screenshots/home-page.png "Site home page")
+![Home page](./assets/images/readme_images/home-page.png "Site home page")
 
 Share The Plate is a Django-based web application that allows users to create, update, search, and share their favourite recipes. Each user has their unique profile, which stores their added recipes. A user's recipe includes information such as title, ingredients, cooking instructions, cooking time, difficulty level, and an optional image. Users can also like and comment on other users' recipes, creating a sense of community and encouraging recipe sharing.
 
@@ -103,49 +103,49 @@ This section explains each part of the project and the value it brings to achiev
 
 ### Create a new user
 
-![create-user](./screenshots/create-user.png "Create user page")
+![create-user](./assets/images/readme_images/create-user.png "Create user page")
 
 The registration function allows users to create a new account using their email, a unique username, and a password. The function includes form validation to ensure data integrity and uses Django's authentication system for password security. Upon successful registration, a user profile is automatically created for the user.
 
 ### Login as a user
 
-![login-user](./screenshots/login-user.png "Login page")
+![login-user](./assets/images/readme_images/login-user.png "Login page")
 
 Users can log in to their existing accounts by providing their username and password. The login system uses Django's authentication framework, providing security and session management.
 
 ### Main menu function
 
-![main-menu](./screenshots/main-menu.png "Main Menu")
+![main-menu](./assets/images/readme_images/main-menu.png "Main Menu")
 
 After logging in, the user is directed to their profile page, where they can view their recipes. They can also navigate to different areas of the site using the navigation bar.
 
 ### Add a recipe
 
-![add-recipe](./screenshots/add-recipe.png "Add recipe page")
+![add-recipe](./assets/images/readme_images/add-recipe.png "Add recipe page")
 
 Users can add a new recipe by filling out a form with the recipe's details. The form includes fields for the recipe's title, ingredients, instructions, cooking time, difficulty level, and an optional image. The form includes validation to ensure all required fields are filled out correctly.
 
 ### Remove a recipe
 
-![remove-recipe](./screenshots/remove-recipe.png "Remove recipe page")
+![remove-recipe](./assets/images/readme_images/remove-recipe.png "Remove recipe page")
 
 Users can delete any of their recipes by going to the recipe's detail page and clicking the 'Delete' button. The user is asked to confirm the deletion to prevent accidental data loss.
 
 ### Update a recipe
 
-![update-recipe](./screenshots/update-recipe.png "Update recipe page")
+![update-recipe](./assets/images/readme_images/update-recipe.png "Update recipe page")
 
 Users can edit any of their recipes by going to the recipe's detail page and clicking the 'Edit' button. This takes them to a form pre-populated with the recipe's current details. The user can update any of the recipe's fields and save the changes.
 
 ### Display recipes
 
-![display-recipes](./screenshots/display-recipes.png "Display recipes page")
+![display-recipes](./assets/images/readme_images/display-recipes.png "Display recipes page")
 
-The user's profile page displays a list of all their recipes, along with the recipe's title, an image if available, and buttons to view, edit, or delete each recipe.
+Each recipe with have a detail page with ingredients, instructions, tags etc and the option for the author to edit or delete it.
 
 ### Search for recipes
 
-![search-recipes](./screenshots/search-recipes.png "Search recipes page")
+![search-recipes](./assets/images/readme_images/search-recipes.png "Search recipes page")
 
 Users can search for recipes by title using the search bar. The search function returns any recipes that match the search term and displays them in a list.
 
