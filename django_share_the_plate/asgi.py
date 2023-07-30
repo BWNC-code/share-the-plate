@@ -11,6 +11,8 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_share_the_plate.settings')
+os.environ.setdefault(
+    'DJANGO_SETTINGS_MODULE',
+    'django_share_the_plate.settings')
 
 application = get_asgi_application()
