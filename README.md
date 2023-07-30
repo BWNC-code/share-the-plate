@@ -234,3 +234,5 @@ The live link can be found [here](https://share-the-plate.herokuapp.com/)
 ## Credits and Acknowledgements
 
 All credits go to the Django and Python communities for their robust and easy-to-use libraries that made this project possible. Thanks also to my mentor for their guidance and advice throughout the project.
+
+"Built with the help of Bootstrap (https://getbootstrap.com/), an open-source front-end framework."
