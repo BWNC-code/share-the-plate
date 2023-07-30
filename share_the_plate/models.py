@@ -19,7 +19,7 @@ DIFFICULTY_CHOICES = [
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    profile_picture = CloudinaryField('image', default='default_profile.jpg')
+    profile_picture = CloudinaryField('image', default='https://res.cloudinary.com/share-the-plate-cloud/image/upload/v1690650210/static/assets/images/default_profile.eba7a5674add.jpg')
 
 
 class Recipe(models.Model):
@@ -35,7 +35,7 @@ class Recipe(models.Model):
         choices=DIFFICULTY_CHOICES,
         default='beginner',
     )
-    featured_image = CloudinaryField('image', default='placeholder')
+    featured_image = CloudinaryField('image', default='https://res.cloudinary.com/share-the-plate-cloud/image/upload/v1690654327/static/assets/images/placeholder_image.b16bf0e41648.jpg')
     categories = models.ManyToManyField('Category', related_name='recipes')
     tags = TaggableManager(blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
