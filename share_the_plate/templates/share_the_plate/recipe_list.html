@@ -8,7 +8,7 @@
         <!-- Main recipe card -->
         {% if main_recipe %}
           <div class="card mb-4">
-            <img src="{% if main_recipe.featured_image == 'placeholder' %}{% static 'assets/images/placeholder_image.jpg' %}{% else %}{{ main_recipe.featured_image.url }}{% endif %}" alt="{{ main_recipe.title }}">
+            <img src="{% if main_recipe.featured_image == 'placeholder' %}{% static 'assets/images/placeholder_image.jpg' %}{% else %}{{ main_recipe.featured_image.url }}{% endif %}" alt="{{ main_recipe.title }}" class="card-img-top img-fluid">
             <div class="card-body">
               <h5 class="card-title">{{ main_recipe.title }}</h5>
               <a href="{% url 'share_the_plate:recipe_detail' main_recipe.slug %}" class="btn btn-primary">View Recipe</a>
@@ -16,6 +16,7 @@
           </div>
         {% endif %}
       </div>
+      
       <!-- Category-wise recipe cards -->
       {% for category, recipes in category_recipes %}
         <div class="col-md-12">
