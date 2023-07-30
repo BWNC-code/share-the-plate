@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style_recipe.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/style_recipe.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -32,7 +32,19 @@
                     {% endif %}
                 </div>
             </div>
-            <img class="img-fluid rounded mt-4" src="{{ recipe.featured_image.url }}" alt="{{ recipe.title }}">
+            {% load cloudinary %}
+
+            {% if recipe.featured_image.url %}
+            <!-- If the recipe has a featured image, display it using Bootstrap classes -->
+            <img class="img-fluid rounded mt-4" src="{{ recipe.featured_image.url }}" alt="{{ recipe.title }}"
+                style="max-width: 200px;">
+            {% else %}
+            <!-- If there's no featured image, load the default image -->
+            <img class="img-fluid rounded mt-4"
+                src="https://res.cloudinary.com/share-the-plate-cloud/image/upload/v1690654327/static/assets/images/placeholder_image.b16bf0e41648.jpg"
+                alt="{{ recipe.title }}" style="max-width: 200px;">
+            {% endif %}
+
             <div class="card mt-4">
                 <div class="card-body">
                     <h3>Ingredients</h3>
@@ -113,8 +125,8 @@
 
 <script>
     // Wait for the DOM to be ready
-    $(document).ready(function() {
-        $('#commentForm').on('submit', function() {
+    $(document).ready(function () {
+        $('#commentForm').on('submit', function () {
             // Reset the comment form after form submission
             $('#commentForm').trigger("reset");
         });
